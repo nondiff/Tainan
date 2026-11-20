@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>台南雙人小旅行｜11/28 — 11/29 旅遊手帳</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Noto Sans TC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --bg-cream: #F5F3EB;
+            --card-white: #FFFFFF;
+            --ink-dark: #222222;
+            --accent-yellow: #F6D365;
+            --soft-pink: #F8EAE8;
+            --soft-mint: #E3EFE0;
+            --sky-blue: #CBE2F6;
+            --emergency-red: #E05252;
+        }
+
+        body {
+            background-color: #EAE6DA;
+            font-family: 'Plus Jakarta Sans', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--ink-dark);
+            -webkit-tap-highlight-color: transparent;
+            margin: 0;
+            padding: 0;
+        }
+
+        .app-shell {
+            max-width: 440px;
+            min-height: 100vh;
+            margin: 0 auto;
+            background-color: var(--bg-cream);
+            position: relative;
+            box-shadow: 0 0 0 2px #222222;
+        }
+
+        @media (min-width: 460px) {
+            body {
+                padding: 12px 0;
+            }
+
+            .app-shell {
+                min-height: calc(100vh - 24px);
+                border-radius: 32px;
+                overflow-x: hidden;
+            }
+        }
+
+        .hb-card {
+            background-color: #FFFFFF;
+            border: 2px solid #222222;
+            border-radius: 22px;
+        }
+
+        .hb-pill {
+            border: 1.5px solid #222222;
+            border-radius: 9999px;
+        }
+
+        .hb-btn {
+            transition: transform 0.12s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+            cursor: pointer;
+        }
+
+        .hb-btn:active {
+            transform: scale(0.96);
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* ==========================================
+       STORYBOOK SVG ANIMATIONS
+       ========================================== */
+        @keyframes spinSlow {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .sun-rays-spin {
+            transform-origin: 332px 38px;
+            animation: spinSlow 24s linear infinite;
+        }
+
+        @keyframes cloudDriftA {
+
+            0%,
+            100% {
+                transform: translateX(0px);
+            }
+
+            50% {
+                transform: translateX(10px);
+            }
+        }
+
+        @keyframes cloudDriftB {
+
+            0%,
+            100% {
+                transform: translateX(0px);
+            }
+
+            50% {
+                transform: translateX(-10px);
+            }
+        }
+
+        .cloud-drift-a {
+            animation: cloudDriftA 7.5s ease-in-out infinite;
+        }
+
+        .cloud-drift-b {
+            animation: cloudDriftB 8.5s ease-in-out infinite;
+        }
+
+        @keyframes palmSway {
+
+            0%,
+            100% {
+                transform: rotate(-2.5deg);
+            }
+
+            50% {
+                transform: rotate(3.5deg);
+            }
+        }
+
+        .palm-sway {
+            transform-origin: 54px 136px;
+            animation: palmSway 3.8s ease-in-out infinite;
+        }
+
+        @keyframes scooterBounce {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-1.5px);
+            }
+        }
+
+        .scooter-bounce {
+            animation: scooterBounce 0.65s ease-in-out infinite;
+        }
+
+        @keyframes wheelSpin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .wheel-spin {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: wheelSpin 1s linear infinite;
+        }
+
+        @keyframes waveShimmer {
+
+            0%,
+            100% {
+                transform: translateX(0px);
+                opacity: 0.85;
+            }
+
+            50% {
+                transform: translateX(6px);
+                opacity: 0.4;
+            }
+        }
+
+        .wave-shimmer {
+            animation: waveShimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes rainFall {
+            0% {
+                transform: translate(0px, -12px);
+                opacity: 0;
+            }
+
+            30% {
+                opacity: 0.85;
+            }
+
+            100% {
+                transform: translate(-12px, 34px);
+                opacity: 0;
+            }
+        }
+
+        .rain-drop-1 {
+            animation: rainFall 1.1s linear infinite;
+        }
+
+        .rain-drop-2 {
+            animation: rainFall 1.1s linear 0.35s infinite;
+        }
+
+        .rain-drop-3 {
+            animation: rainFall 1.1s linear 0.7s infinite;
+        }
+
+        @keyframes dashFlow {
+            to {
+                stroke-dashoffset: -24;
+            }
+        }
+
+        .route-dash {
+            animation: dashFlow 1.4s linear infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-shell flex flex-col pb-8" id="app">
+        <!-- Top 5-Tab Navigation Bar (Adapted for Tainan Trip) -->
+        <header class="sticky top-0 z-30 bg-[#F5F3EB]/95 backdrop-blur-sm pt-3 px-3 pb-2">
+            <nav aria-label="主導覽列"
+                class="bg-white border-2 border-[#222222] rounded-[22px] p-1.5 grid grid-cols-5 gap-1">
+                <button onclick="switchTab('home')" data-tab="home"
+                    class="nav-tab hb-btn flex flex-col items-center justify-center py-1.5 px-1 rounded-[15px] border-2 border-transparent">
+                    <svg class="w-5 h-5 mb-0.5" viewBox="0 0 24 24" fill="none" stroke="#222222" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path
+                            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41">
+                        </path>
+                    </svg>
+                    <span class="text-[11px] font-black leading-none tracking-tight">首頁</span>
+                </button>
+
+                <button onclick="switchTab('itinerary')" data-tab="itinerary"
+                    class="nav-tab hb-btn flex flex-col items-center justify-center py-1.5 px-1 rounded-[15px] border-2 border-transparent">
+                    <svg class="w-5 h-5 mb-0.5" viewBox="0 0 24 24" fill="none" stroke="#222222" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="3"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <span class="text-[11px] font-black leading-none tracking-tight">行程</span>
+                </button>
+
+                <button onclick="switchTab('spots')" data-tab="spots"
+                    class="nav-tab hb-btn flex flex-col items-center justify-center py-1.5 px-1 rounded-[15px] border-2 border-transparent">
+                    <svg class="w-5 h-5 mb-0.5" viewBox="0 0 24 24" fill="none" stroke="#222222" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M4 11h16a1 1 0 0 1 1 1v.5a7.5 7.5 0 0 1-7.5 7.5h-3A7.5 7.5 0 0 1 3 12.5V12a1 1 0 0 1 1-1z">
+                        </path>
+                        <path d="M8 7c0-1 1-1.5 1-2.5S8 3 8 3"></path>
+                        <path d="M12 7c0-1 1-1.5 1-2.5S12 3 12 3"></path>
+                        <path d="M16 7c0-1 1-1.5 1-2.5S16 3 16 3"></path>
+                    </svg>
+                    <span class="text-[11px] font-black leading-none tracking-tight">美食/備案</span>
+                </button>
+
+                <button onclick="switchTab('checklist')" data-tab="checklist"
+                    class="nav-tab hb-btn flex flex-col items-center justify-center py-1.5 px-1 rounded-[15px] border-2 border-transparent">
+                    <svg class="w-5 h-5 mb-0.5" viewBox="0 0 24 24" fill="none" stroke="#222222" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="4" y="4" width="16" height="16" rx="3"></rect>
+                        <polyline points="9 12 11 14 15 10"></polyline>
+                    </svg>
+                    <span class="text-[11px] font-black leading-none tracking-tight">清單</span>
+                </button>
+
+                <button onclick="switchTab('info')" data-tab="info"
+                    class="nav-tab hb-btn flex flex-col items-center justify-center py-1.5 px-1 rounded-[15px] border-2 border-transparent">
+                    <svg class="w-5 h-5 mb-0.5" viewBox="0 0 24 24" fill="none" stroke="#222222" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    <span class="text-[11px] font-black leading-none tracking-tight">住宿/車況</span>
+                </button>
+            </nav>
+        </header>
+
+        <!-- Main Content Container -->
+        <main id="main-content" class="px-3.5 pt-1 flex-1 space-y-4"></main>
+
+        <!-- Toast Notification Banner -->
+        <div id="toast"
+            class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 transition-all duration-200 translate-y-2">
+            <div
+                class="bg-[#222222] text-white border-2 border-white px-4 py-2 rounded-full text-xs font-bold shadow-lg flex items-center gap-2 whitespace-nowrap">
+                <span id="toast-icon">✅</span>
+                <span id="toast-text">已複製到剪貼簿</span>
+            </div>
+        </div>
+
+        <!-- Edit Trip Modal -->
+        <div id="edit-modal"
+            class="fixed inset-0 z-50 bg-black/40 backdrop-blur-[1px] hidden items-center justify-center p-4">
+            <div class="bg-white border-2 border-[#222222] rounded-[24px] w-full max-w-[390px] p-5 space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-black flex items-center gap-1.5">✏️ 編輯旅遊手帳資訊</h3>
+                    <button onclick="closeEditModal()"
+                        class="w-8 h-8 rounded-full border-2 border-[#222222] flex items-center justify-center font-black text-sm hb-btn">✕</button>
+                </div>
+                <div class="space-y-3 text-xs font-bold">
+                    <div>
+                        <label class="block mb-1 text-[#555555]">旅遊標題</label>
+                        <input id="edit-title" type="text"
+                            class="w-full border-2 border-[#222222] rounded-xl px-3 py-2 text-sm font-bold focus:outline-none focus:bg-[#FFFDF5]" />
+                    </div>
+                    <div>
+                        <label class="block mb-1 text-[#555555]">日期副標題</label>
+                        <input id="edit-subtitle" type="text"
+                            class="w-full border-2 border-[#222222] rounded-xl px-3 py-2 text-sm font-bold focus:outline-none focus:bg-[#FFFDF5]" />
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block mb-1 text-[#555555]">地區標籤</label>
+                            <input id="edit-regions" type="text"
+                                class="w-full border-2 border-[#222222] rounded-xl px-3 py-2 text-xs font-bold focus:outline-none focus:bg-[#FFFDF5]" />
+                        </div>
+                        <div>
+                            <label class="block mb-1 text-[#555555]">成員標籤</label>
+                            <input id="edit-travelers" type="text"
+                                class="w-full border-2 border-[#222222] rounded-xl px-3 py-2 text-xs font-bold focus:outline-none focus:bg-[#FFFDF5]" />
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block mb-1 text-[#555555]">個人備忘錄（顯示於首頁）</label>
+                        <input id="edit-memo" type="text"
+                            class="w-full border-2 border-[#222222] rounded-xl px-3 py-2 text-xs font-bold focus:outline-none focus:bg-[#FFFDF5]" />
+                    </div>
+                </div>
+                <div class="flex gap-2 pt-1">
+                    <button onclick="resetTripMeta()"
+                        class="flex-1 py-2.5 rounded-xl border-2 border-[#222222] bg-[#F5F3EB] text-xs font-black hb-btn">恢復預設</button>
+                    <button onclick="saveTripMeta()"
+                        class="flex-1 py-2.5 rounded-xl border-2 border-[#222222] bg-[#F6D365] text-xs font-black hb-btn">儲存變更</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // 1. STATE & PERSISTENT STORAGE (TAINAN 11/28)
+        // ==========================================
+        const DEFAULT_META = {
+            title: '台南雙人小旅行',
+            subtitle: '2026.11.28 (六) — 11.29 (日)・第一天早上行程',
+            regions: '北區・中西區・安平',
+            travelers: '2 人同行・開車＋租機車',
+            memo: '記得帶汽車＆機車駕照｜廣發寓所放行李後騎車去安平'
+        };
+
+        const DEFAULT_CHECKLIST = [
+            {
+                category: '證件與交通必備',
+                items: [
+                    { id: 't1', text: '汽車駕照正本（開車前往台南與停車用）', done: false },
+                    { id: 't2', text: '普通重型機車駕照正本（見昌租機車必帶）', done: false },
+                    { id: 't3', text: '身分證／健保卡與手機充電線、行動電源', done: false },
+                    { id: 't4', text: '廣發寓所訂房確認與入住資訊', done: false }
+                ]
+            },
+            {
+                category: '穿搭與隨身小物',
+                items: [
+                    { id: 't5', text: '防曬乳（朝鮮美人藍色防曬）＋ 太陽眼鏡／遮陽帽', done: false },
+                    { id: 't6', text: '騎機車防風薄外套與透氣上衣（安平海邊風大）', done: false },
+                    { id: 't7', text: '隨身保溫瓶／無糖茶飲與個人常用小物', done: false }
+                ]
+            }
+        ];
+
+        let state = {
+            activeTab: 'home',
+            weatherMode: localStorage.getItem('tn_weather_v1') || 'sunny',
+            selectedSlot: 'am1', // 'am1' (11/28 早上), 'pm1' (11/28 下午), 'day2' (11/29 Day 2)
+            spotFilter: 'all',
+            tripMeta: JSON.parse(localStorage.getItem('tn_meta_v1') || 'null') || { ...DEFAULT_META },
+            checkedStops: JSON.parse(localStorage.getItem('tn_checked_stops_v1') || '{}'),
+            stopNotes: JSON.parse(localStorage.getItem('tn_stop_notes_v1') || '{}'),
+            checklist: JSON.parse(localStorage.getItem('tn_checklist_v1') || 'null') || JSON.parse(JSON.stringify(DEFAULT_CHECKLIST)),
+            parkingInfo: localStorage.getItem('tn_parking_v1') || '車子博客停車場-臺南轉運站場（臨停/月租）',
+            scooterInfo: localStorage.getItem('tn_scooter_v1') || '見昌機車出租｜記得拍車身刮痕與確認還車時間',
+            hotelInfo: localStorage.getItem('tn_hotel_v1') || '廣發寓所｜先放行李再騎機車去安平'
+        };
+
+        // ==========================================
+        // 2. ITINERARY DATA (11/28 MORNING FOCUS + EXTENDABLE SLOTS)
+        // ==========================================
+        const SCHEDULE_SLOTS = {
+            am1: {
+                slotLabel: '11/28 (六) 早上',
+                title: '停車 → 西羅殿牛肉湯 → 開基玉皇宮 → 無名豆花 → 見昌租車 → 廣發寓所 → 安平',
+                badge: '🚗 轉運站停車＋🛵 騎車去安平',
+                badgeColor: '#F6D365',
+                rainyTip: '☔ 雨天備案提示：西羅殿牛肉湯與無名豆花多為快速用餐，騎機車往安平前可先穿好雨衣或將背包放入車廂。',
+                items: [
+                    {
+                        id: 's1',
+                        time: '第一站・停車',
+                        title: '車子博客停車場 - 臺南轉運站場（臨停/月租）',
+                        desc: '抵達台南後先將汽車停妥於臺南轉運站場周邊的車子博客停車場，確認臨停/月租費率與取車動線，方便後續步行或搭車銜接市區行程。',
+                        tags: ['🅿️ 臨停/月租', '📍 轉運站周邊'],
+                        backup: '若轉運站場車位已滿，可改停周邊公有或民營平面停車場。',
+                        mapQuery: '臺南轉運站 停車場'
+                    },
+                    {
+                        id: 's2',
+                        time: '第二站・早餐',
+                        title: '西羅殿牛肉湯',
+                        desc: '開啟台南早起美食第一站！現沖溫體牛肉湯搭配肉燥飯與白飯，建議留意現場人潮與營業時段，早點到比較不用久等。',
+                        tags: ['🥣 必吃早餐', '⏰ 建議早到'],
+                        backup: '備案：若現場排隊太長或已售完，可改吃附近人氣牛肉湯或傳統鹹粥。',
+                        mapQuery: '西羅殿牛肉湯'
+                    },
+                    {
+                        id: 's3',
+                        time: '第三站・廟宇',
+                        title: '臺南開基玉皇宮',
+                        desc: '吃飽後順路前往台南歷史悠久的開基玉皇宮參拜祈福，欣賞傳統廟宇建築與雕刻細節，節奏輕鬆不趕路。',
+                        tags: ['⛩️ 參拜祈福', '🏛️ 古蹟廟宇'],
+                        backup: '備案：若遇陣雨可在廟宇廊下稍作休息並查看雨勢。',
+                        mapQuery: '臺南開基玉皇宮'
+                    },
+                    {
+                        id: 's4',
+                        time: '第四站・點心',
+                        title: '無名豆花',
+                        desc: '逛完廟宇來一碗綿密古早味豆花當早茶點心，甜度適中、消暑解膩，幫上午行程補充能量。',
+                        tags: ['🍮 古早味點心', '❄️ 消暑甜品'],
+                        backup: '備案：附近若排隊較長，可改去市區其他傳統豆花或甜湯店。',
+                        mapQuery: '無名豆花 台南'
+                    },
+                    {
+                        id: 's5',
+                        time: '第五站・租機車',
+                        title: '租機車 - 見昌機車出租',
+                        desc: '前往見昌辦理租機車手續，記得攜帶駕照、錄影確認車況與燈光煞車，並記下還車時間與聯絡電話。',
+                        tags: ['🛵 租機車', '🪪 記得帶駕照'],
+                        backup: '備案：取車後先在附近熟悉煞車與油門手感再出發。',
+                        mapQuery: '見昌租機車 台南'
+                    },
+                    {
+                        id: 's6',
+                        time: '第六站・飯店',
+                        title: '廣發寓所',
+                        desc: '騎機車先前往廣發寓所寄放行李或辦理入住手續，把多餘物品留在住宿處，減輕後續騎車負擔。',
+                        tags: ['🏨 放行李/入住', '🧳 輕裝出發'],
+                        backup: '備案：若尚未到進房時間，可先寄放行李再前往安平。',
+                        mapQuery: '廣發寓所'
+                    },
+                    {
+                        id: 's7',
+                        time: '第七站・移動',
+                        title: '騎機車去安平',
+                        desc: '從廣發寓所騎機車往安平方向移動，沿途注意市區車流與測速照相，準備展開安平散步與吃吃喝喝！',
+                        tags: ['🛵 前往安平', '⚠️ 注意行車安全'],
+                        backup: '備案：若遇下雨可先停妥機車於室內景點或咖啡廳躲雨。',
+                        mapQuery: '安平 台南'
+                    }
+                ]
+            },
+            pm1: {
+                slotLabel: '11/28 (六) 下午',
+                title: '安平周邊散步・老街與晚餐（可隨時補充）',
+                badge: '🌊 安平移動日',
+                badgeColor: '#CBE2F6',
+                rainyTip: '☔ 下午若遇下雨，可優先安排室內空間、伴手禮店或咖啡廳休息。',
+                items: [
+                    {
+                        id: 'pm_a1',
+                        time: '下午時段・安平',
+                        title: '安平海景／老街散步（可依需求調整）',
+                        desc: '預留給安平老街散步、吃特色小吃、看夕陽海景的彈性時段，可直接用下方筆記記錄想去的景點與美食店家。',
+                        tags: ['📌 預留彈性時段', '🌊 老街與海景散步'],
+                        backup: '備案：依當天體力與天氣彈性調整停留時間。',
+                        mapQuery: '安平老街'
+                    }
+                ]
+            },
+            day2: {
+                slotLabel: '11/29 (日) Day 2',
+                title: '第二天行程（待補充／還車返程）',
+                badge: '🗓️ Day 2 預留區',
+                badgeColor: '#E3EFE0',
+                rainyTip: '☔ 第二天可依第一天玩樂進度與退房、還車時間彈性安排。',
+                items: [
+                    {
+                        id: 'd2_a1',
+                        time: 'Day 2・規劃中',
+                        title: '第二天早午行程與取車返程',
+                        desc: '可在行程卡片的「筆記/備忘錄」直接寫下第二天想吃的早餐、咖啡廳或還車提醒。',
+                        tags: ['✏️ 可自由寫筆記'],
+                        backup: '備案：視天氣與返程時間調整。',
+                        mapQuery: '臺南轉運站'
+                    }
+                ]
+            }
+        };
+
+        const SPOTS_CARDS = [
+            {
+                name: '西羅殿牛肉湯',
+                tag: '🥣 11/28 早餐',
+                color: '#F8EAE8',
+                tip: '現沖牛肉湯搭配肉燥飯很有飽足感，早上時段建議提早前往，避免久候或熱門品項售完。',
+                backup: '備案：附近其他牛肉湯或傳統台式早餐店。',
+                mapQuery: '西羅殿牛肉湯'
+            },
+            {
+                name: '臺南開基玉皇宮',
+                tag: '⛩️ 11/28 廟宇',
+                color: '#F6D365',
+                tip: '安排在早餐後散步參拜，節奏剛剛好；參拜時留意香爐與階梯動線。',
+                backup: '備案：周邊巷弄散步或找咖啡店稍作歇息。',
+                mapQuery: '臺南開基玉皇宮'
+            },
+            {
+                name: '無名豆花',
+                tag: '🍮 11/28 點心',
+                color: '#E3EFE0',
+                tip: '作為早茶點心很清爽，可先在卡片筆記記下想吃的配料或甜度偏好。',
+                backup: '備案：中西區或北區其他古早味豆花店。',
+                mapQuery: '無名豆花 台南'
+            },
+            {
+                name: '安平老街漫遊與特色小吃',
+                tag: '🛵 騎車去安平',
+                color: '#CBE2F6',
+                tip: '騎機車往安平移動時注意路面標線與車流；老街周邊適合徒步漫遊，可品嚐蝦捲、豆花、椪餅等在地小吃。',
+                backup: '備案：遇到陣雨可改逛室內文創店家或提早回廣發寓所休息。',
+                mapQuery: '安平老街'
+            }
+        ];
+
+        // ==========================================
+        // 3. HELPERS & RENDERERS
+        // ==========================================
+        let toastTimer = null;
+        function showToast(text, icon = '✅') {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-text').textContent = text;
+            document.getElementById('toast-icon').textContent = icon;
+            toast.classList.remove('opacity-0', 'translate-y-2');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                toast.classList.remove('opacity-100', 'translate-y-0');
+            }, 2100);
+        }
+
+        function escapeHtml(str) {
+            return String(str || '')
+                .replace(/&/g, '&')
+                .replace(/</g, '<')
+                .replace(/>/g, '>')
+                .replace(/"/g, '"');
+        }
+
+        function openGoogleMaps(query) {
+            const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+            window.open(url, '_blank', 'noopener,noreferrer');
+        }
+
+        function saveState() {
+            localStorage.setItem('tn_weather_v1', state.weatherMode);
+            localStorage.setItem('tn_meta_v1', JSON.stringify(state.tripMeta));
+            localStorage.setItem('tn_checked_stops_v1', JSON.stringify(state.checkedStops));
+            localStorage.setItem('tn_stop_notes_v1', JSON.stringify(state.stopNotes));
+            localStorage.setItem('tn_checklist_v1', JSON.stringify(state.checklist));
+            localStorage.setItem('tn_parking_v1', state.parkingInfo);
+            localStorage.setItem('tn_scooter_v1', state.scooterInfo);
+            localStorage.setItem('tn_hotel_v1', state.hotelInfo);
+        }
+
+        function updateClock() {
+            const el = document.getElementById('tw-clock');
+            if (!el) return;
+            const now = new Date().toLocaleTimeString('zh-TW', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+            el.textContent = `台灣時間 ${now}`;
+        }
+
+        function renderHeroIllustration() {
+            const isSunny = state.weatherMode === 'sunny';
+            return `
+        <div class="relative rounded-[18px] border-2 border-[#222222] overflow-hidden">
+          <button onclick="toggleWeatherMode()" class="hb-btn absolute top-2.5 right-2.5 z-10 bg-white border-[1.5px] border-[#222222] rounded-full px-3 py-1 text-[11px] font-black flex items-center gap-1">
+            <span>${isSunny ? '☀️' : '🌧️'}</span>
+            <span>${isSunny ? '晴天模式' : '雨天模式'}</span>
+          </button>
+
+          <svg viewBox="0 0 380 170" class="w-full h-auto block" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="tnSkySunny" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#CBE2F6" />
+                <stop offset="100%" stop-color="#EEF7FF" />
+              </linearGradient>
+              <linearGradient id="tnSkyRainy" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#96AABF" />
+                <stop offset="100%" stop-color="#D2DCE6" />
+              </linearGradient>
+              <linearGradient id="anpingSea" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#7CC6FE" />
+                <stop offset="100%" stop-color="#A6E1FA" />
+              </linearGradient>
+            </defs>
+
+            <rect x="0" y="0" width="380" height="170" fill="${isSunny ? 'url(#tnSkySunny)' : 'url(#tnSkyRainy)'}" />
+
+            ${isSunny ? `
+              <g class="sun-rays-spin" stroke="#222222" stroke-width="2" stroke-linecap="round">
+                <line x1="332" y1="10" x2="332" y2="16" />
+                <line x1="332" y1="60" x2="332" y2="66" />
+                <line x1="304" y1="38" x2="310" y2="38" />
+                <line x1="354" y1="38" x2="360" y2="38" />
+                <line x1="312" y1="18" x2="316" y2="22" />
+                <line x1="348" y1="54" x2="352" y2="58" />
+                <line x1="352" y1="18" x2="348" y2="22" />
+                <line x1="316" y1="54" x2="312" y2="58" />
+              </g>
+              <circle cx="332" cy="38" r="15" fill="#F6D365" stroke="#222222" stroke-width="2.2" />
+            ` : `
+              <g stroke="#3B5266" stroke-width="1.8" stroke-linecap="round">
+                <line x1="105" y1="45" x2="99" y2="59" class="rain-drop-1" />
+                <line x1="145" y1="48" x2="139" y2="62" class="rain-drop-2" />
+                <line x1="185" y1="44" x2="179" y2="58" class="rain-drop-3" />
+                <line x1="230" y1="48" x2="224" y2="62" class="rain-drop-1" />
+              </g>
+            `}
+
+            <!-- Clouds -->
+            <g class="cloud-drift-a">
+              <path d="M98 46 H148 C153 46 156 43 156 38 C156 34 153 31 148 31 C147 24 141 19 134 19 C128 19 123 22 121 27 C119 26 117 25 114 25 C109 25 105 29 105 34 C101 34 98 37 98 41 C98 44 98 46 98 46 Z"
+                    fill="${isSunny ? '#FFFFFF' : '#CBD5E1'}" stroke="#222222" stroke-width="2" stroke-linejoin="round" />
+            </g>
+            <g class="cloud-drift-b">
+              <path d="M210 50 H252 C256 50 259 47 259 43 C259 40 256 37 252 37 C251 31 246 27 240 27 C235 27 231 30 229 34 C225 34 222 37 222 41 C222 46 216 50 210 50 Z"
+                    fill="${isSunny ? '#FFFFFF' : '#94A3B8'}" stroke="#222222" stroke-width="2" stroke-linejoin="round" />
+            </g>
+
+            <!-- Anping Coastal Water Band -->
+            <rect x="195" y="106" width="185" height="30" fill="url(#anpingSea)" />
+            <line x1="195" y1="106" x2="380" y2="106" stroke="#222222" stroke-width="2" />
+            <path d="M272 118 Q282 115 292 118 T312 118" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" class="wave-shimmer" />
+            <path d="M324 127 Q334 124 344 127" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" class="wave-shimmer" />
+
+            <!-- Green Hillside & Temple Roof Accent -->
+            <path d="M0 104 Q72 86 155 106 Q190 115 215 136 H0 Z" fill="#E3EFE0" stroke="#222222" stroke-width="2" />
+
+            <!-- Cute Temple Gate / Pagoda Accent -->
+            <g transform="translate(96, 68)">
+              <rect x="14" y="22" width="44" height="20" fill="#F8EAE8" stroke="#222222" stroke-width="2" />
+              <line x1="24" y1="22" x2="24" y2="42" stroke="#222222" stroke-width="1.8" />
+              <line x1="48" y1="22" x2="48" y2="42" stroke="#222222" stroke-width="1.8" />
+              <rect x="31" y="28" width="10" height="8" fill="#F6D365" stroke="#222222" stroke-width="1.5" />
+              <path d="M4 23 Q36 16 68 23 L62 17 Q36 12 10 17 Z" fill="#F6D365" stroke="#222222" stroke-width="2" stroke-linejoin="round" />
+              <path d="M12 11 Q36 3 60 11 L53 5 Q36 0 19 5 Z" fill="#F6D365" stroke="#222222" stroke-width="2" stroke-linejoin="round" />
+            </g>
+
+            <!-- Swaying Palm Tree -->
+            <g class="palm-sway">
+              <path d="M54 136 Q50 114 58 94" fill="none" stroke="#8D6E63" stroke-width="5" stroke-linecap="round" />
+              <path d="M54 136 Q50 114 58 94" fill="none" stroke="#222222" stroke-width="2" stroke-linecap="round" />
+              <path d="M58 94 Q40 86 30 98 Q44 94 58 94 Z" fill="#8FD18B" stroke="#222222" stroke-width="1.8" stroke-linejoin="round" />
+              <path d="M58 94 Q44 76 32 80 Q46 84 58 94 Z" fill="#A5E0A1" stroke="#222222" stroke-width="1.8" stroke-linejoin="round" />
+              <path d="M58 94 Q74 78 84 84 Q70 86 58 94 Z" fill="#A5E0A1" stroke="#222222" stroke-width="1.8" stroke-linejoin="round" />
+              <path d="M58 94 Q76 90 84 102 Q70 96 58 94 Z" fill="#8FD18B" stroke="#222222" stroke-width="1.8" stroke-linejoin="round" />
+            </g>
+
+            <!-- Road Strip -->
+            <rect x="0" y="136" width="380" height="34" fill="#E3DACB" />
+            <line x1="0" y1="136" x2="380" y2="136" stroke="#222222" stroke-width="2.2" />
+            <line x1="0" y1="154" x2="380" y2="154" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="10 10" />
+
+            <!-- Cute Scooter Heading to Anping -->
+            <g transform="translate(222, 114)">
+              <g class="scooter-bounce">
+                <!-- Scooter Body -->
+                <path d="M8 22 L16 14 L34 14 L42 22 L48 22 L46 27 L8 27 Z" fill="#F6D365" stroke="#222222" stroke-width="2" stroke-linejoin="round" />
+                <!-- Front Fork & Handlebar -->
+                <line x1="35" y1="14" x2="32" y2="5" stroke="#222222" stroke-width="2.2" stroke-linecap="round" />
+                <line x1="27" y1="5" x2="37" y2="5" stroke="#222222" stroke-width="2.2" stroke-linecap="round" />
+                <!-- Seat -->
+                <path d="M12 13 Q20 10 27 13" fill="none" stroke="#222222" stroke-width="3" stroke-linecap="round" />
+              </g>
+              <!-- Wheels -->
+              <g class="wheel-spin">
+                <circle cx="13" cy="27" r="6.5" fill="#222222" />
+                <circle cx="13" cy="27" r="2.5" fill="#FFFFFF" />
+              </g>
+              <g class="wheel-spin">
+                <circle cx="42" cy="27" r="6.5" fill="#222222" />
+                <circle cx="42" cy="27" r="2.5" fill="#FFFFFF" />
+              </g>
+            </g>
+          </svg>
+        </div>
+      `;
+        }
+
+        function renderHomeTab() {
+            const am1Items = SCHEDULE_SLOTS.am1.items;
+            const doneCount = am1Items.filter(i => !!state.checkedStops[i.id]).length;
+            const pct = Math.round((doneCount / am1Items.length) * 100);
+
+            return `
+        <div class="flex items-center justify-between pt-1">
+          <h1 class="text-[26px] font-black tracking-tight text-[#222222]">首頁</h1>
+          <div id="tw-clock" class="bg-white border-2 border-[#222222] rounded-full px-3.5 py-1 text-xs font-black tracking-wide tabular-nums">
+            台灣時間 --:--:--
+          </div>
+        </div>
+
+        <!-- Hero Card -->
+        <section class="hb-card p-4">
+          ${renderHeroIllustration()}
+
+          <div class="flex items-center justify-between gap-1.5 mt-3.5 flex-wrap">
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span class="bg-[#F8EAE8] hb-pill px-2.5 py-1 text-[11px] font-black text-[#222222]">
+                ${escapeHtml(state.tripMeta.regions)}
+              </span>
+              <span class="bg-[#E3EFE0] hb-pill px-2.5 py-1 text-[11px] font-black text-[#222222]">
+                ${escapeHtml(state.tripMeta.travelers)}
+              </span>
+            </div>
+            <button onclick="openEditModal()" class="hb-btn bg-white hb-pill px-2.5 py-1 text-[11px] font-black flex items-center gap-1">
+              <span>✏️</span>
+              <span>編輯</span>
+            </button>
+          </div>
+
+          <div class="mt-3">
+            <h2 class="text-[26px] font-black text-[#222222] leading-tight tracking-tight">
+              ${escapeHtml(state.tripMeta.title)}
+            </h2>
+            <p class="text-xs font-bold text-[#666666] mt-1">
+              ${escapeHtml(state.tripMeta.subtitle)}
+            </p>
+          </div>
+
+          <!-- 11/28 Morning Progress Box -->
+          <div class="bg-[#F6D365] border-2 border-[#222222] rounded-[18px] p-3.5 mt-4 space-y-2">
+            <div class="flex items-center justify-between text-xs font-black text-[#222222]">
+              <span>☀️ 11/28 早上行程進度</span>
+              <span class="tabular-nums">${doneCount} / ${am1Items.length} 站 (${pct}%)</span>
+            </div>
+            <div class="w-full h-3 bg-white border-[1.5px] border-[#222222] rounded-full overflow-hidden">
+              <div class="h-full bg-[#222222] transition-all duration-300" style="width: ${pct}%;"></div>
+            </div>
+          </div>
+
+          ${state.tripMeta.memo ? `
+            <div class="mt-3 bg-[#F5F3EB] border-[1.5px] border-[#222222] rounded-xl px-3 py-2 text-[11px] font-bold text-[#222222] flex items-center gap-1.5">
+              <span>📌</span>
+              <span>${escapeHtml(state.tripMeta.memo)}</span>
+            </div>
+          ` : ''}
+        </section>
+
+        <!-- 11/28 Morning Quick Route Strip -->
+        <section class="hb-card p-4 bg-[#F8EAE8] space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="bg-white hb-pill px-3 py-0.5 text-xs font-black">🗺️ 11/28 早上動線</span>
+            <button onclick="switchTab('itinerary')" class="hb-btn bg-[#222222] text-white rounded-full px-3 py-1 text-[11px] font-black">
+              看完整時間軸 ➔
+            </button>
+          </div>
+          <p class="text-xs font-black text-[#222222] leading-relaxed">
+            車子博客停車場（臺南轉運站場）➔ 西羅殿牛肉湯 ➔ 臺南開基玉皇宮 ➔ 無名豆花 ➔ 見昌租機車 ➔ 廣發寓所 ➔ 騎機車去安平
+          </p>
+        </section>
+      `;
+        }
+
+        function renderItineraryTab() {
+            const slot = SCHEDULE_SLOTS[state.selectedSlot];
+            const isRainy = state.weatherMode === 'rainy';
+
+            return `
+        <div class="flex items-center justify-between pt-1">
+          <h1 class="text-2xl font-black text-[#222222]">行程表</h1>
+          <button onclick="toggleWeatherMode()" class="hb-btn bg-white border-2 border-[#222222] rounded-full px-3 py-1 text-xs font-black flex items-center gap-1.5">
+            <span>${isRainy ? '🌧️' : '☀️'}</span>
+            <span>${isRainy ? '雨天模式' : '晴天模式'}</span>
+          </button>
+        </div>
+
+        <!-- Slot Switcher Tabs (11/28 早上 / 11/28 下午 / Day 2) -->
+        <div class="grid grid-cols-3 gap-2">
+          ${Object.entries(SCHEDULE_SLOTS).map(([key, s]) => {
+                const active = state.selectedSlot === key;
+                return `
+              <button onclick="selectSlot('${key}')" class="hb-btn py-2 px-2 rounded-[16px] border-2 border-[#222222] text-center transition ${active ? 'bg-[#F6D365]' : 'bg-white'}">
+                <div class="text-xs font-black text-[#222222]">${s.slotLabel}</div>
+              </button>
+            `;
+            }).join('')}
+        </div>
+
+        <!-- Slot Header Card -->
+        <div class="hb-card p-3.5 space-y-2">
+          <div class="flex items-center justify-between gap-2 flex-wrap">
+            <span class="text-xs font-black text-[#666666]">${slot.slotLabel}</span>
+            <span class="hb-pill px-2.5 py-0.5 text-[11px] font-black" style="background-color: ${slot.badgeColor};">
+              ${slot.badge}
+            </span>
+          </div>
+          <h2 class="text-base font-black text-[#222222] leading-snug">${slot.title}</h2>
+          ${isRainy ? `
+            <div class="bg-[#CBE2F6] border-[1.5px] border-[#222222] rounded-xl p-2.5 text-[11px] font-bold text-[#222222] leading-relaxed">
+              ${slot.rainyTip}
+            </div>
+          ` : ''}
+        </div>
+
+        <!-- Route Flow Visual Map -->
+        ${state.selectedSlot === 'am1' ? `
+          <div class="hb-card p-3.5 bg-[#FFFDF7] space-y-2">
+            <div class="text-xs font-black text-[#222222]">📍 11/28 早上路線節點</div>
+            <svg viewBox="0 0 340 66" class="w-full h-auto block" xmlns="http://www.w3.org/2000/svg">
+              <line x1="24" y1="24" x2="316" y2="24" stroke="#E05252" stroke-width="2.5" stroke-dasharray="5 4" class="route-dash" />
+              ${[
+                        { x: 24, n: '1', lbl: '停車' },
+                        { x: 72, n: '2', lbl: '牛肉湯' },
+                        { x: 120, n: '3', lbl: '玉皇宮' },
+                        { x: 168, n: '4', lbl: '無名豆花' },
+                        { x: 216, n: '5', lbl: '見昌租車' },
+                        { x: 264, n: '6', lbl: '廣發寓所' },
+                        { x: 312, n: '7', lbl: '去安平' }
+                    ].map(p => `
+                <g transform="translate(${p.x}, 24)">
+                  <circle cx="0" cy="0" r="10" fill="#F6D365" stroke="#222222" stroke-width="1.8" />
+                  <text x="0" y="3.5" text-anchor="middle" font-size="9" font-weight="900" fill="#222222">${p.n}</text>
+                  <text x="0" y="23" text-anchor="middle" font-size="8.5" font-weight="900" fill="#222222">${p.lbl}</text>
+                </g>
+              `).join('')}
+            </svg>
+          </div>
+        ` : ''}
+
+        <!-- Timeline Cards -->
+        <div class="space-y-3">
+          ${slot.items.map(item => {
+                        const checked = !!state.checkedStops[item.id];
+                        const noteVal = state.stopNotes[item.id] || '';
+                        return `
+              <div class="hb-card p-3.5 space-y-2.5 transition ${checked ? 'opacity-65 bg-[#FAF8F2]' : 'bg-white'}">
+                <div class="flex items-center justify-between gap-2">
+                  <div class="flex items-center gap-2">
+                    <button onclick="toggleStopDone('${item.id}')" class="hb-btn w-6 h-6 rounded-full border-2 border-[#222222] flex items-center justify-center text-xs font-black ${checked ? 'bg-[#E3EFE0]' : 'bg-white'}">
+                      ${checked ? '✓' : ''}
+                    </button>
+                    <span class="bg-[#222222] text-white rounded-full px-2.5 py-0.5 text-xs font-black">
+                      ${item.time}
+                    </span>
+                  </div>
+                  <button onclick="openGoogleMaps('${item.mapQuery.replace(/'/g, "\\'")}')" class="hb-btn bg-[#F6D365] hb-pill px-2.5 py-1 text-[11px] font-black flex items-center gap-1">
+                    <span>📍</span>
+                    <span>導航</span>
+                  </button>
+                </div>
+
+                <h3 class="text-[15px] font-black text-[#222222] leading-snug ${checked ? 'line-through text-[#666666]' : ''}">
+                  ${item.title}
+                </h3>
+
+                <p class="text-xs font-bold text-[#555555] leading-relaxed">
+                  ${item.desc}
+                </p>
+
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  ${item.tags.map(t => `
+                    <span class="bg-[#F5F3EB] hb-pill px-2.5 py-0.5 text-[10px] font-black">${t}</span>
+                  `).join('')}
+                </div>
+
+                <div class="bg-[#F8EAE8]/80 rounded-xl px-2.5 py-1.5 text-[11px] font-bold text-[#222222]">
+                  💡 ${item.backup}
+                </div>
+
+                <!-- Personal Note Input per Stop -->
+                <div>
+                  <input type="text" value="${escapeHtml(noteVal)}" placeholder="✏️ 寫下現場筆記（如：車格號碼、還車時間、必點品項）" onchange="updateStopNote('${item.id}', this.value)" class="w-full text-[11px] font-bold bg-[#F5F3EB] border-[1.5px] border-[#222222]/40 rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-[#222222]" />
+                </div>
+              </div>
+            `;
+                    }).join('')}
+        </div>
+      `;
+        }
+
+        function renderSpotsTab() {
+            return `
+        <div class="flex items-center justify-between pt-1">
+          <h1 class="text-2xl font-black text-[#222222]">美食與備案</h1>
+          <span class="text-[11px] font-black bg-[#F6D365] hb-pill px-2.5 py-1">11/28 早上</span>
+        </div>
+
+        <div class="space-y-3">
+          ${SPOTS_CARDS.map(s => `
+            <div class="hb-card p-3.5 space-y-2">
+              <div class="flex items-center justify-between gap-2">
+                <span class="hb-pill px-2.5 py-0.5 text-[11px] font-black" style="background-color: ${s.color};">${s.tag}</span>
+                <button onclick="openGoogleMaps('${s.mapQuery.replace(/'/g, "\\'")}')" class="hb-btn bg-[#F5F3EB] hb-pill px-2.5 py-1 text-[11px] font-black">
+                  地圖 ➔
+                </button>
+              </div>
+              <h3 class="text-base font-black text-[#222222]">${s.name}</h3>
+              <p class="text-xs font-bold text-[#555555] leading-relaxed">${s.tip}</p>
+              <div class="bg-[#F5F3EB] rounded-xl p-2 text-[11px] font-bold text-[#222222]">
+                🔄 ${s.backup}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+        }
+
+        function renderChecklistTab() {
+            let total = 0;
+            let done = 0;
+            state.checklist.forEach(c => c.items.forEach(i => {
+                total++;
+                if (i.done) done++;
+            }));
+            const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+            return `
+        <div class="flex items-center justify-between pt-1">
+          <h1 class="text-2xl font-black text-[#222222]">行前清單</h1>
+          <button onclick="resetChecklist()" class="hb-btn bg-white hb-pill px-3 py-1 text-[11px] font-black">重置勾選</button>
+        </div>
+
+        <div class="hb-card p-4 bg-[#E3EFE0]">
+          <div class="flex items-center justify-between text-xs font-black mb-2">
+            <span>準備完成度</span>
+            <span class="tabular-nums">${done} / ${total} 項 (${pct}%)</span>
+          </div>
+          <div class="w-full h-3 bg-white border-2 border-[#222222] rounded-full overflow-hidden">
+            <div class="h-full bg-[#F6D365] transition-all duration-300" style="width: ${pct}%;"></div>
+          </div>
+        </div>
+
+        <div class="hb-card p-3 flex items-center gap-2">
+          <input id="new-check-input" type="text" placeholder="新增物品（如：雨衣、充電線）" class="flex-1 text-xs font-bold bg-[#F5F3EB] border-[1.5px] border-[#222222] rounded-xl px-3 py-2 focus:outline-none" onkeydown="if(event.key==='Enter') addCheckItem()" />
+          <button onclick="addCheckItem()" class="hb-btn bg-[#F6D365] border-[1.5px] border-[#222222] rounded-xl px-3 py-2 text-xs font-black shrink-0">＋ 加入</button>
+        </div>
+
+        <div class="space-y-3">
+          ${state.checklist.map((cat, cIdx) => `
+            <div class="hb-card p-3.5 space-y-2">
+              <h3 class="text-sm font-black text-[#222222] border-b-2 border-[#222222] pb-1">${cat.category}</h3>
+              <div class="space-y-1.5">
+                ${cat.items.map((item, iIdx) => `
+                  <label class="flex items-start gap-2.5 p-2 rounded-xl border-[1.5px] ${item.done ? 'bg-[#F5F3EB] border-[#222222]/30' : 'bg-white border-[#222222]'} cursor-pointer">
+                    <input type="checkbox" ${item.done ? 'checked' : ''} onchange="toggleCheckItem(${cIdx}, ${iIdx})" class="mt-0.5 w-4 h-4 accent-[#222222]" />
+                    <span class="text-xs font-bold flex-1 ${item.done ? 'line-through text-[#888888]' : 'text-[#222222]'}">${escapeHtml(item.text)}</span>
+                  </label>
+                `).join('')}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+        }
+
+        function renderInfoTab() {
+            return `
+        <div class="flex items-center justify-between pt-1">
+          <h1 class="text-2xl font-black text-[#222222]">住宿與車況</h1>
+          <span class="text-[11px] font-black bg-[#E3EFE0] hb-pill px-2.5 py-1">自動儲存</span>
+        </div>
+
+        <div class="hb-card p-4 space-y-3 text-xs font-bold">
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="font-black text-[#222222]">🅿️ 車子博客停車場 - 臺南轉運站場</label>
+              <button onclick="openGoogleMaps('臺南轉運站 停車場')" class="hb-btn bg-[#F5F3EB] hb-pill px-2 py-0.5 text-[10px] font-black">導航</button>
+            </div>
+            <input type="text" value="${escapeHtml(state.parkingInfo)}" onchange="state.parkingInfo = this.value; saveState(); showToast('已儲存停車備忘');" class="w-full bg-[#F5F3EB] border-[1.5px] border-[#222222] rounded-xl px-3 py-2 text-xs font-bold" />
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="font-black text-[#222222]">🛵 見昌機車出租</label>
+              <button onclick="openGoogleMaps('見昌租機車 台南')" class="hb-btn bg-[#F5F3EB] hb-pill px-2 py-0.5 text-[10px] font-black">導航</button>
+            </div>
+            <input type="text" value="${escapeHtml(state.scooterInfo)}" onchange="state.scooterInfo = this.value; saveState(); showToast('已儲存租車備忘');" class="w-full bg-[#F5F3EB] border-[1.5px] border-[#222222] rounded-xl px-3 py-2 text-xs font-bold" />
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="font-black text-[#222222]">🏨 廣發寓所</label>
+              <button onclick="openGoogleMaps('廣發寓所')" class="hb-btn bg-[#F5F3EB] hb-pill px-2 py-0.5 text-[10px] font-black">導航</button>
+            </div>
+            <input type="text" value="${escapeHtml(state.hotelInfo)}" onchange="state.hotelInfo = this.value; saveState(); showToast('已儲存住宿備忘');" class="w-full bg-[#F5F3EB] border-[1.5px] border-[#222222] rounded-xl px-3 py-2 text-xs font-bold" />
+          </div>
+        </div>
+      `;
+        }
+
+        // ==========================================
+        // 4. INTERACTION CONTROLLERS
+        // ==========================================
+        function switchTab(tabName) {
+            state.activeTab = tabName;
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                const isTarget = btn.getAttribute('data-tab') === tabName;
+                btn.style.backgroundColor = isTarget ? '#F6D365' : 'transparent';
+                btn.style.borderColor = isTarget ? '#222222' : 'transparent';
+            });
+            renderCurrentTab();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderCurrentTab() {
+            const container = document.getElementById('main-content');
+            if (!container) return;
+            switch (state.activeTab) {
+                case 'home':
+                    container.innerHTML = renderHomeTab();
+                    updateClock();
+                    break;
+                case 'itinerary':
+                    container.innerHTML = renderItineraryTab();
+                    break;
+                case 'spots':
+                    container.innerHTML = renderSpotsTab();
+                    break;
+                case 'checklist':
+                    container.innerHTML = renderChecklistTab();
+                    break;
+                case 'info':
+                    container.innerHTML = renderInfoTab();
+                    break;
+            }
+        }
+
+        function toggleWeatherMode() {
+            state.weatherMode = state.weatherMode === 'sunny' ? 'rainy' : 'sunny';
+            saveState();
+            renderCurrentTab();
+            showToast(state.weatherMode === 'sunny' ? '已切換為 ☀️ 晴天模式' : '已切換為 🌧️ 雨天模式');
+        }
+
+        function selectSlot(slotKey) {
+            state.selectedSlot = slotKey;
+            renderCurrentTab();
+        }
+
+        function toggleStopDone(id) {
+            state.checkedStops[id] = !state.checkedStops[id];
+            saveState();
+            renderCurrentTab();
+        }
+
+        function updateStopNote(id, val) {
+            state.stopNotes[id] = val;
+            saveState();
+            showToast('已儲存景點筆記', '✏️');
+        }
+
+        function toggleCheckItem(cIdx, iIdx) {
+            state.checklist[cIdx].items[iIdx].done = !state.checklist[cIdx].items[iIdx].done;
+            saveState();
+            renderCurrentTab();
+        }
+
+        function addCheckItem() {
+            const input = document.getElementById('new-check-input');
+            const val = input ? input.value.trim() : '';
+            if (!val) return;
+            state.checklist[0].items.unshift({ id: 'c_' + Date.now(), text: val, done: false });
+            saveState();
+            renderCurrentTab();
+            showToast('已加入清單');
+        }
+
+        function resetChecklist() {
+            state.checklist = JSON.parse(JSON.stringify(DEFAULT_CHECKLIST));
+            saveState();
+            renderCurrentTab();
+            showToast('已重置清單');
+        }
+
+        function openEditModal() {
+            document.getElementById('edit-title').value = state.tripMeta.title;
+            document.getElementById('edit-subtitle').value = state.tripMeta.subtitle;
+            document.getElementById('edit-regions').value = state.tripMeta.regions;
+            document.getElementById('edit-travelers').value = state.tripMeta.travelers;
+            document.getElementById('edit-memo').value = state.tripMeta.memo || '';
+            const modal = document.getElementById('edit-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeEditModal() {
+            const modal = document.getElementById('edit-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function saveTripMeta() {
+            state.tripMeta = {
+                title: document.getElementById('edit-title').value.trim() || DEFAULT_META.title,
+                subtitle: document.getElementById('edit-subtitle').value.trim() || DEFAULT_META.subtitle,
+                regions: document.getElementById('edit-regions').value.trim() || DEFAULT_META.regions,
+                travelers: document.getElementById('edit-travelers').value.trim() || DEFAULT_META.travelers,
+                memo: document.getElementById('edit-memo').value.trim()
+            };
+            saveState();
+            closeEditModal();
+            renderCurrentTab();
+            showToast('已更新旅遊手帳資訊');
+        }
+
+        function resetTripMeta() {
+            state.tripMeta = { ...DEFAULT_META };
+            saveState();
+            closeEditModal();
+            renderCurrentTab();
+            showToast('已恢復預設設定');
+        }
+
+        window.onload = function () {
+            switchTab('home');
+            setInterval(updateClock, 1000);
+        };
+    </script>
+</body>
+
+</html>
