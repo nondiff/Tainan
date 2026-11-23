@@ -474,6 +474,21 @@
             }
         }
 
+                function mergeDefaultSpots(existingSpots) {
+            if (!Array.isArray(existingSpots) || existingSpots.length === 0) {
+                return JSON.parse(JSON.stringify(DEFAULT_SAVED_SPOTS));
+            }
+            const existingNames = new Set(existingSpots.map(s => s.name));
+            const existingIds = new Set(existingSpots.map(s => s.id));
+            const result = [...existingSpots];
+            DEFAULT_SAVED_SPOTS.forEach(ds => {
+                if (!existingNames.has(ds.name) && !existingIds.has(ds.id)) {
+                    result.push(ds);
+                }
+            });
+            return result;
+        }
+
         function initCloudSync() {
             if (!tripRef) {
                 updateCloudStatus('offline');
@@ -493,14 +508,35 @@
                     if (cloudData.parkingInfo !== undefined) state.parkingInfo = cloudData.parkingInfo;
                     if (cloudData.scooterInfo !== undefined) state.scooterInfo = cloudData.scooterInfo;
                     if (cloudData.hotelInfo !== undefined) state.hotelInfo = cloudData.hotelInfo;
-                    if (cloudData.scheduleSlots) state.scheduleSlots = cloudData.scheduleSlots;
-                    if (cloudData.savedSpots) state.savedSpots = cloudData.savedSpots;
+                    
+                    let needPushUpgrade = false;
+                    if (cloudData.scheduleSlots) {
+                        state.scheduleSlots = cloudData.scheduleSlots;
+                        if (state.scheduleSlots.pm1 && (!state.scheduleSlots.pm1.items || state.scheduleSlots.pm1.items.length <= 1)) {
+                            state.scheduleSlots.pm1 = JSON.parse(JSON.stringify(DEFAULT_SCHEDULE_SLOTS.pm1));
+                            needPushUpgrade = true;
+                        }
+                    } else {
+                        state.scheduleSlots = JSON.parse(JSON.stringify(DEFAULT_SCHEDULE_SLOTS));
+                        needPushUpgrade = true;
+                    }
+
+                    const originalCount = (cloudData.savedSpots || []).length;
+                    state.savedSpots = mergeDefaultSpots(cloudData.savedSpots);
+                    if (state.savedSpots.length > originalCount) {
+                        needPushUpgrade = true;
+                    }
+
                     if (cloudData.expenses) state.expenses = cloudData.expenses;
 
                     saveLocalState();
                     renderCurrentTab();
                     isReceivingCloudUpdate = false;
                     updateCloudStatus('synced');
+
+                    if (needPushUpgrade) {
+                        saveState(false, true);
+                    }
                 } else {
                     saveState(false, true);
                 }
@@ -542,16 +578,17 @@
         ];
 
         const DEFAULT_SAVED_SPOTS = [
+            // 晨間/北區精選
             {
                 id: 'spot_xiro',
                 name: '西羅殿牛肉湯',
                 tag: '🥣 早餐必吃',
                 category: 'food',
                 district: '北區',
-                openHours: '04:30 - 13:00',
+                openHours: '04:30 - 13:00 (週二休)',
                 stayMin: '45分鐘',
-                tip: '現沖溫體牛肉湯搭配肉燥飯，早起前往避免久候。',
-                backup: '附近其他牛肉湯或傳統台式鹹粥',
+                tip: '現沖溫體牛肉湯搭配香濃肉燥飯，早起前往避免久候。',
+                backup: '阿財牛肉湯或周邊傳統鹹粥',
                 mapQuery: '西羅殿牛肉湯',
                 color: '#F8EAE8',
                 isDefault: true
@@ -576,67 +613,333 @@
                 tag: '🍮 古早味甜點',
                 category: 'food',
                 district: '北區',
-                openHours: '09:00 - 17:30',
+                openHours: '09:00 - 17:30 (週二休)',
                 stayMin: '30分鐘',
-                tip: '古早味純手工豆花，糖水清甜、消暑解膩。',
-                backup: '中西區或北區其他傳統古早味豆花店',
+                tip: '古早味純手工豆花，糖水清甜、滑順消暑解膩。',
+                backup: '同記安平豆花',
                 mapQuery: '無名豆花 台南',
                 color: '#E3EFE0',
                 isDefault: true
             },
+
+            // 安平區：午餐小吃・老街漫遊・伴手禮・甜品
             {
                 id: 'spot_anping_old',
-                name: '安平老街漫遊與特色小吃',
+                name: '安平老街',
                 tag: '🌊 老街漫遊',
                 category: 'spot',
                 district: '安平區',
                 openHours: '10:00 - 19:00',
                 stayMin: '90分鐘',
-                tip: '徒步漫遊安平古蹟巷弄，品嚐蝦捲、椪餅等在地小吃。',
-                backup: '遇到陣雨可改逛室內文創店家或提早回廣發寓所',
+                tip: '延平老街古意盎然，穿梭劍獅古巷、探訪文創柑仔店與特色小舖。',
+                backup: '安平古堡園區周邊',
                 mapQuery: '安平老街',
                 color: '#CBE2F6',
                 isDefault: true
             },
             {
+                id: 'spot_wang_fish',
+                name: '王氏魚皮店',
+                tag: '🐟 安平午餐名店',
+                category: 'food',
+                district: '安平區',
+                openHours: '04:00 - 14:00 (假日至 14:30)',
+                stayMin: '45分鐘',
+                tip: '安平人氣午餐！鮮美無刺魚皮湯、現煎魚肚配肉燥飯，在地老牌招牌美味。',
+                backup: '阿財牛肉湯 或 文章牛肉湯',
+                mapQuery: '王氏魚皮店',
+                color: '#F6D365',
+                isDefault: true
+            },
+            {
+                id: 'spot_acai_beef',
+                name: '阿財牛肉湯',
+                tag: '🥣 溫體牛肉湯',
+                category: 'food',
+                district: '安平區',
+                openHours: '11:00 - 01:00 (深夜)',
+                stayMin: '40分鐘',
+                tip: '安平老牌現沖溫體牛肉湯，湯頭帶蔬果香甜，肉質鮮嫩滑順。',
+                backup: '王氏魚皮店',
+                mapQuery: '阿財牛肉湯 安平',
+                color: '#F8EAE8',
+                isDefault: true
+            },
+            {
+                id: 'spot_lin_mijian',
+                name: '正宗林永泰興蜜餞行',
+                tag: '🍬 百年蜜餞伴手禮',
+                category: 'food',
+                district: '安平區',
+                openHours: '11:30 - 19:00 (週三公休)',
+                stayMin: '30分鐘',
+                tip: '延平老街百年蜜餞老舖！必買化應子、芭樂乾、濕芭樂條、甜菊梅，送禮自用首選。',
+                backup: '舊李合興蜜餞行',
+                mapQuery: '正宗林永泰興蜜餞行',
+                color: '#F6D365',
+                isDefault: true
+            },
+            {
+                id: 'spot_lee_mijian',
+                name: '舊李合興蜜餞行',
+                tag: '🍬 創始蜜餞老字號',
+                category: 'food',
+                district: '安平區',
+                openHours: '09:30 - 20:00',
+                stayMin: '25分鐘',
+                tip: '百年傳統古法漢方蜜餞，口味甘甜多樣，老街伴手禮經典口袋名單。',
+                backup: '正宗林永泰興蜜餞行',
+                mapQuery: '舊李合興蜜餞行',
+                color: '#E3EFE0',
+                isDefault: true
+            },
+            {
+                id: 'spot_mimi_shop',
+                name: '蜜蜜的店',
+                tag: '🍪 安平特色手作點心',
+                category: 'food',
+                district: '安平區',
+                openHours: '10:30 - 18:30',
+                stayMin: '25分鐘',
+                tip: '安平老街高人氣手作小店，特製椪餅冰淇淋與手作伴手禮甜點，拍照可愛又美味！',
+                backup: '味珍香味酥',
+                mapQuery: '蜜蜜的店 安平',
+                color: '#F8EAE8',
+                isDefault: true
+            },
+            {
+                id: 'spot_weizhenxiang',
+                name: '味珍香味酥（蝦餅）',
+                tag: '🦐 現炸酥脆蝦餅',
+                category: 'food',
+                district: '安平區',
+                openHours: '09:30 - 19:30',
+                stayMin: '20分鐘',
+                tip: '安平現炸原味/黑胡椒/辣味蝦餅，香酥脆口不油膩，唰嘴必備伴手禮。',
+                backup: '安平老街周邊伴手禮',
+                mapQuery: '味珍香味酥 安平',
+                color: '#CBE2F6',
+                isDefault: true
+            },
+            {
+                id: 'spot_nanquan_ice',
+                name: '南泉冰菓室',
+                tag: '🍧 運河景觀水果冰',
+                category: 'cafe',
+                district: '安平區',
+                openHours: '12:00 - 18:00 (假日至 21:00)',
+                stayMin: '45分鐘',
+                tip: '安平運河旁復古冰果室，滿滿新鮮當季水果刨冰超吸睛，頂樓還能俯瞰運河美景！',
+                backup: '同記安平豆花',
+                mapQuery: '南泉冰菓室',
+                color: '#F6D365',
+                isDefault: true
+            },
+            {
+                id: 'spot_tongji_douhua',
+                name: '同記安平豆花',
+                tag: '🍮 經典安平豆花',
+                category: 'food',
+                district: '安平區',
+                openHours: '09:00 - 23:00',
+                stayMin: '30分鐘',
+                tip: '安平家喻戶曉老店，古早味白豆花與竹炭黑豆花，搭配紅豆珍珠甜香滑嫩。',
+                backup: '南泉冰菓室',
+                mapQuery: '同記安平豆花 安平總店',
+                color: '#E3EFE0',
+                isDefault: true
+            },
+
+            // 傍晚夕陽海景
+            {
                 id: 'spot_sunset',
                 name: '安平觀夕平台',
-                tag: '🌅 絕美夕陽',
+                tag: '🌅 絕美海景夕陽',
                 category: 'spot',
                 district: '安平區',
-                openHours: '24小時（建議 16:30 - 17:40 前往）',
+                openHours: '全天開放（建議 16:30 - 17:40，日落約 17:13）',
                 stayMin: '50分鐘',
-                tip: '安平看落日與海風的最佳打卡景點。',
+                tip: '台南看落日第一名勝地！漫步防風林木棧道，迎著海風眺望夕陽染紅海面。',
                 backup: '大魚的祝福或林默娘公園',
                 mapQuery: '觀夕平台 台南',
                 color: '#CBE2F6',
                 isDefault: true
             },
+
+            // 北區：挑手套專賣
             {
-                id: 'spot_chikan',
-                name: '赤崁樓與神農街商圈',
-                tag: '🏛️ 古蹟夜景',
+                id: 'spot_baseball_shop',
+                name: '湖美棒球世界運動用品',
+                tag: '⚾ 專業棒球手套專賣',
                 category: 'spot',
-                district: '中西區',
-                openHours: '08:30 - 21:30',
+                district: '北區',
+                openHours: '10:30 - 21:30',
                 stayMin: '60分鐘',
-                tip: '夜晚神農街紅燈籠亮起極具風情，古宅老屋改造的小店與茶酒館林立。',
-                backup: '孔廟文化園區或林百貨',
-                mapQuery: '神農街 台南',
+                tip: '北區和緯路五段288號。專業棒球運動用品專賣店，各式皮革手套齊全、手感極佳，挑新手套首選！',
+                backup: '金剛棒球運動用品',
+                mapQuery: '湖美棒球世界運動用品 和緯路五段',
+                color: '#F6D365',
+                isDefault: true
+            },
+
+            // 中西區：下午茶點心（國華街/水仙宮商圈）
+            {
+                id: 'spot_qiancao_shrimp',
+                name: '淺草蝦卷',
+                tag: '🦐 酥脆現炸蝦卷',
+                category: 'food',
+                district: '中西區',
+                openHours: '11:00 - 18:00',
+                stayMin: '25分鐘',
+                tip: '西門淺草商圈人氣點心！現炸黃金蝦捲外皮酥脆內餡鮮甜，沾上黃芥末醬油膏超誘人。',
+                backup: '國華街周邊小吃',
+                mapQuery: '淺草蝦卷 台南',
+                color: '#F6D365',
+                isDefault: true
+            },
+            {
+                id: 'spot_yangmi_cake',
+                name: '央米紅豆餅',
+                tag: '🥞 爆餡香酥車輪餅',
+                category: 'cafe',
+                district: '中西區',
+                openHours: '11:30 - 19:00 (週一休)',
+                stayMin: '20分鐘',
+                tip: '國華街高人氣爆餡車輪餅！奶油、紅豆、芋頭、珍珠奶茶口味豐富，皮薄酥脆餡料滿溢。',
+                backup: '吉品紅豆餅',
+                mapQuery: '央米紅豆餅 國華街',
                 color: '#F8EAE8',
                 isDefault: true
             },
             {
-                id: 'spot_guohua',
-                name: '國華街商圈・永樂市場',
-                tag: '🍜 美食一級戰區',
+                id: 'spot_fodu_aiyu',
+                name: '佛都愛玉',
+                tag: '🍋 全國冠軍手洗愛玉',
                 category: 'food',
                 district: '中西區',
-                openHours: '08:00 - 16:00',
-                stayMin: '75分鐘',
-                tip: '割包、富盛號碗粿、修安扁擔豆花、春捲集中地！',
-                backup: '保安路美食街',
-                mapQuery: '國華街三段 台南',
+                openHours: '11:00 - 21:00',
+                stayMin: '30分鐘',
+                tip: '獲獎無數的天然野生手洗愛玉！招牌桂花鳳梨愛玉、檸檬愛玉酸甜生津、消暑解渴。',
+                backup: '逍遙果汁',
+                mapQuery: '佛都愛玉 台南',
+                color: '#E3EFE0',
+                isDefault: true
+            },
+            {
+                id: 'spot_xiaoyao_juice',
+                name: '逍遙果汁',
+                tag: '🥤 現打天然鮮果汁',
+                category: 'cafe',
+                district: '中西區',
+                openHours: '10:00 - 21:00',
+                stayMin: '20分鐘',
+                tip: '國華街人氣果汁鋪！現點現打純果汁、木瓜牛奶與酪梨布丁牛奶，新鮮香濃好喝。',
+                backup: '佛都愛玉',
+                mapQuery: '逍遙果汁 台南',
+                color: '#CBE2F6',
+                isDefault: true
+            },
+            {
+                id: 'spot_jipin_cake',
+                name: '吉品紅豆餅（台南客滿店）',
+                tag: '🥞 酥脆多口味紅豆餅',
+                category: 'cafe',
+                district: '中西區',
+                openHours: '12:00 - 18:30',
+                stayMin: '20分鐘',
+                tip: '餡料飽滿實在、餅皮酥脆！起司馬鈴薯、可可、香濃奶油下午茶超療癒。',
+                backup: '央米紅豆餅',
+                mapQuery: '吉品紅豆餅 客滿店 台南',
+                color: '#F6D365',
+                isDefault: true
+            },
+
+            // 中西區：神農街夜景
+            {
+                id: 'spot_shennong',
+                name: '神農街',
+                tag: '🏮 百年老宅紅燈籠夜景',
+                category: 'spot',
+                district: '中西區',
+                openHours: '全天（18:00 - 22:00 點燈夜景最美）',
+                stayMin: '60分鐘',
+                tip: '台南保存最完整的清代老街，夜幕降臨時紅燈籠亮起極具風情，老宅文創小舖與酒館林立。',
+                backup: '海安路街道美術館',
+                mapQuery: '神農街 台南',
+                color: '#F8EAE8',
+                isDefault: true
+            },
+
+            // 中西區：水仙宮晚餐與宵夜小吃
+            {
+                id: 'spot_shuixiangong_migao',
+                name: '水仙宮粽葉米糕',
+                tag: '🍚 傳統古早味米糕',
+                category: 'food',
+                district: '中西區',
+                openHours: '16:00 - 00:30',
+                stayMin: '35分鐘',
+                tip: '數十年老字號！香Ｑ糯米淋上濃郁肉燥與酥脆魚鬆、醃黃瓜，用紙/粽葉包覆香氣撲鼻，配四神湯極搭。',
+                backup: '保安路米糕',
+                mapQuery: '水仙宮粽葉米糕',
+                color: '#E3EFE0',
+                isDefault: true
+            },
+            {
+                id: 'spot_fusheng_shane',
+                name: '福昇小食',
+                tag: '🍲 超強鑊氣炒鱔魚意麵',
+                category: 'food',
+                district: '中西區',
+                openHours: '11:30 - 20:00 (週四休)',
+                stayMin: '35分鐘',
+                tip: '水仙宮/國華街在地人口袋名單！大火快炒鑊氣十足的鱔魚意麵與花枝意麵，酸甜醬汁濃郁開胃。',
+                backup: '阿江炒鱔魚',
+                mapQuery: '福昇小食 國華街',
+                color: '#F6D365',
+                isDefault: true
+            },
+            {
+                id: 'spot_along_blackwhite',
+                name: '阿龍香腸熟肉',
+                tag: '🍢 老字號黑白切',
+                category: 'food',
+                district: '中西區',
+                openHours: '10:30 - 20:00',
+                stayMin: '30分鐘',
+                tip: '台南百年特色黑白切小吃！必點特製蟳丸、粉腸、鯊魚煙與米血，沾黃芥末醬油膏風味絕佳。',
+                backup: '水仙宮市場小吃',
+                mapQuery: '阿龍香腸熟肉',
+                color: '#F8EAE8',
+                isDefault: true
+            },
+            {
+                id: 'spot_shuixiangong_noodle',
+                name: '水仙宮海產麵',
+                tag: '🍜 料多鮮甜古早味麵',
+                category: 'food',
+                district: '中西區',
+                openHours: '11:00 - 14:00, 16:30 - 20:30',
+                stayMin: '35分鐘',
+                tip: '水仙宮市場排隊小吃！大骨海鮮熬製鮮甜高湯，滿滿鮮蝦、花枝、豬肝與肉絲，一碗超滿足。',
+                backup: '國華街古早味意麵',
+                mapQuery: '水仙宮海產麵',
+                color: '#CBE2F6',
+                isDefault: true
+            },
+
+            // 北區：宵夜外帶＆回廣發寓所
+            {
+                id: 'spot_dandan_chenggong',
+                name: '丹丹漢堡（成功店）',
+                tag: '🍔 南霸天速食宵夜',
+                category: 'food',
+                district: '北區',
+                openHours: '07:00 - 21:00 (週二休)',
+                stayMin: '20分鐘 (外帶)',
+                tip: '北區成功路380號。南部限定速食霸主！炸雞、鮮脆雞腿堡搭赤肉麵線羹，外帶回廣發寓所享受宵夜。',
+                backup: '廣發寓所周邊小吃',
+                mapQuery: '丹丹漢堡 成功店',
                 color: '#F6D365',
                 isDefault: true
             }
@@ -730,20 +1033,97 @@
             },
             pm1: {
                 slotLabel: 'Day 1 下午',
-                title: '安平老街散步 ➔ 品嚐在地小吃 ➔ 觀夕平台夕陽 ➔ 晚餐',
-                badge: '🌊 安平老街與海景',
+                title: '安平美食老街 ➔ 國華街午茶 ➔ 觀夕平台日落 ➔ 湖美挑手套 ➔ 神農街夜景 ➔ 水仙宮晚餐 ➔ 丹丹宵夜回寓所',
+                badge: '🌊 安平小吃・夕陽・挑手套・神農街夜景・水仙宮宵夜',
                 badgeColor: '#CBE2F6',
                 items: [
                     {
-                        id: 'pm_a1',
-                        time: '下午時段・安平',
-                        title: '安平老街漫遊與海景夕陽',
-                        desc: '預留給安平散步、吃特色小吃、看夕陽海景的彈性時段，可自由加入口袋景點。',
-                        tags: ['📌 彈性漫遊', '🌊 老街與海景'],
+                        id: 'pm_s1_lunch',
+                        time: '第一站・午餐',
+                        title: '安平在地美食：王氏魚皮 / 阿財牛肉湯',
+                        desc: '午餐抵達安平！王氏魚皮鮮美無刺魚皮湯搭肉燥飯，或阿財現沖溫體牛肉湯，補足元氣。',
+                        tags: ['🐟 王氏魚皮店', '🥣 阿財牛肉湯', '📍 安平區'],
+                        mapQuery: '王氏魚皮店 安平',
+                        district: '安平區',
+                        openHours: '11:00 - 14:00',
+                        category: 'food'
+                    },
+                    {
+                        id: 'pm_s2_oldstreet',
+                        time: '第二站・老街漫遊',
+                        title: '安平老街漫遊 ＆ 伴手禮小吃點心',
+                        desc: '漫步延平老街巷弄，採買林永泰興蜜餞、舊李合興、蜜蜜的店特色點心、味珍香味酥蝦餅，再來碗南泉冰菓室水果冰或同記安平豆花！',
+                        tags: ['🍬 林永泰興/舊李合興蜜餞', '🦐 味珍香味酥蝦餅', '🍧 南泉冰菓室/同記豆花', '🍪 蜜蜜的店'],
                         mapQuery: '安平老街',
                         district: '安平區',
                         openHours: '10:00 - 19:00',
                         category: 'spot'
+                    },
+                    {
+                        id: 'pm_s3_teatime',
+                        time: '第三站・下午茶點心',
+                        title: '中西區下午茶：國華街・水仙宮小吃巡禮',
+                        desc: '品嚐淺草現炸酥脆蝦捲、央米紅豆餅/吉品紅豆餅、全國冠軍佛都天然野生愛玉、逍遙現打鮮果汁！',
+                        tags: ['🦐 淺草蝦卷', '🥞 央米/吉品紅豆餅', '🍋 佛都愛玉', '🥤 逍遙果汁'],
+                        mapQuery: '國華街三段 台南',
+                        district: '中西區',
+                        openHours: '11:00 - 18:30',
+                        category: 'food'
+                    },
+                    {
+                        id: 'pm_s4_sunset',
+                        time: '第四站・日落時刻',
+                        title: '安平觀夕平台看夕陽海景（日落約 17:13）',
+                        desc: '傍晚 16:45 抵達觀夕平台，沿防風林木棧道散步，吹著海風欣賞 17:13 落日餘暉染紅海平面。',
+                        tags: ['🌅 觀夕平台', '⏰ 17:13 日落', '🌊 海風浪漫'],
+                        mapQuery: '觀夕平台 台南',
+                        district: '安平區',
+                        openHours: '16:30 - 17:40 最佳',
+                        category: 'spot'
+                    },
+                    {
+                        id: 'pm_s5_baseball',
+                        time: '第五站・挑新手套',
+                        title: '湖美棒球世界運動用品（挑選手套）',
+                        desc: '北區和緯路五段288號。專業棒球裝備專門店，品牌齊全、挑選手感極佳的專業棒球手套與裝備配件。',
+                        tags: ['⚾ 湖美棒球世界', '🧤 挑選棒球手套', '📍 和緯路五段288號'],
+                        mapQuery: '湖美棒球世界運動用品 和緯路五段',
+                        district: '北區',
+                        openHours: '10:30 - 21:30',
+                        category: 'spot'
+                    },
+                    {
+                        id: 'pm_s6_shennong',
+                        time: '第六站・夜景漫步',
+                        title: '神農街夜景漫遊（紅燈籠老屋聚落）',
+                        desc: '夜晚紅燈籠高掛，清代百年老街古建築與文創小店流露迷人氛圍，夜拍散步極有情調。',
+                        tags: ['🏮 百年紅燈籠', '🏛️ 清代街屋', '📸 夜拍散步'],
+                        mapQuery: '神農街 台南',
+                        district: '中西區',
+                        openHours: '18:00 - 22:00 點燈最美',
+                        category: 'spot'
+                    },
+                    {
+                        id: 'pm_s7_dinner',
+                        time: '第七站・在地晚餐',
+                        title: '水仙宮美食小吃（米糕・鱔魚意麵・黑白切・海產麵）',
+                        desc: '品嚐水仙宮粽葉米糕、福昇小食超強鑊氣鱔魚意麵、阿龍香腸熟肉黑白切（蟳丸粉腸）、水仙宮海產麵。',
+                        tags: ['🍚 水仙宮粽葉米糕', '🍲 福昇小食鱔魚意麵', '🍢 阿龍香腸熟肉', '🍜 水仙宮海產麵'],
+                        mapQuery: '水仙宮粽葉米糕',
+                        district: '中西區',
+                        openHours: '16:30 - 21:00',
+                        category: 'food'
+                    },
+                    {
+                        id: 'pm_s8_dandan',
+                        time: '第八站・宵夜外帶＆返程',
+                        title: '丹丹漢堡成功店（外帶宵夜）➔ 回廣發寓所',
+                        desc: '北區成功路380號，回程順路外帶丹丹漢堡炸雞與麵線羹，返回廣發寓所舒服洗澡、享受南部限定宵夜！',
+                        tags: ['🍔 丹丹漢堡成功店', '🍗 南霸天炸雞', '🏨 回廣發寓所'],
+                        mapQuery: '丹丹漢堡 成功店',
+                        district: '北區',
+                        openHours: '至 21:00 (週二休)',
+                        category: 'food'
                     }
                 ]
             },
@@ -782,11 +1162,16 @@
             scheduleSlots: (() => {
                 const slots = JSON.parse(localStorage.getItem('tn_slots_v2') || 'null') || JSON.parse(JSON.stringify(DEFAULT_SCHEDULE_SLOTS));
                 if (slots.am1) slots.am1.slotLabel = 'Day 1 早上';
-                if (slots.pm1) slots.pm1.slotLabel = 'Day 1 下午';
+                if (slots.pm1) {
+                    slots.pm1.slotLabel = 'Day 1 下午';
+                    if (!slots.pm1.items || slots.pm1.items.length <= 1) {
+                        slots.pm1 = JSON.parse(JSON.stringify(DEFAULT_SCHEDULE_SLOTS.pm1));
+                    }
+                }
                 if (slots.day2) slots.day2.slotLabel = 'Day 2';
                 return slots;
             })(),
-            savedSpots: JSON.parse(localStorage.getItem('tn_saved_spots_v2') || 'null') || JSON.parse(JSON.stringify(DEFAULT_SAVED_SPOTS)),
+            savedSpots: mergeDefaultSpots(JSON.parse(localStorage.getItem('tn_saved_spots_v2') || 'null')),
             expenses: JSON.parse(localStorage.getItem('tn_expenses_v2') || '{}')
         };
 
@@ -1202,8 +1587,14 @@
             if (title.includes('租機車') || title.includes('租車')) score = -15;
             if (title.includes('廣發寓所') || title.includes('放行李') || item.category === 'hotel') score = -5;
             if (title.includes('去安平') || title.includes('前往安平')) score = 10;
-            if (title.includes('夕陽') || title.includes('觀夕') || title.includes('日落')) score = 80;
-            if (title.includes('夜市') || title.includes('宵夜') || title.includes('酒吧')) score = 95;
+            if (title.includes('午餐') || title.includes('魚皮') || title.includes('王氏')) score = 10;
+            if (title.includes('老街') || title.includes('蜜餞') || title.includes('蝦餅') || title.includes('豆花') || title.includes('冰菓室')) score = 25;
+            if (title.includes('下午茶') || title.includes('國華街') || title.includes('愛玉') || title.includes('紅豆餅') || title.includes('果汁')) score = 45;
+            if (title.includes('夕陽') || title.includes('觀夕') || title.includes('日落')) score = 70;
+            if (title.includes('手套') || title.includes('棒球') || title.includes('湖美')) score = 78;
+            if (title.includes('神農街') || title.includes('老屋') || title.includes('夜景')) score = 85;
+            if (title.includes('米糕') || title.includes('鱔魚') || title.includes('香腸熟肉') || title.includes('海產麵') || title.includes('晚餐')) score = 90;
+            if (title.includes('丹丹') || title.includes('宵夜') || title.includes('外帶')) score = 95;
             if (title.includes('還車') || title.includes('取車返程') || title.includes('返程')) return 100;
 
             if (slotKey === 'am1') {
@@ -1727,6 +2118,9 @@
             const filteredSpots = state.savedSpots.filter(s => {
                 if (filter === 'all') return true;
                 if (filter === 'custom') return !!s.isCustom;
+                if (filter === 'anping') return s.district === '安平區';
+                if (filter === 'west') return s.district === '中西區';
+                if (filter === 'north') return s.district === '北區';
                 return s.category === filter;
             });
 
@@ -1748,7 +2142,10 @@
                 { id: 'all', label: '全部' },
                 { id: 'food', label: '🍜 美食' },
                 { id: 'spot', label: '⛩️ 景點' },
-                { id: 'cafe', label: '☕ 咖啡甜點' },
+                { id: 'cafe', label: '☕ 甜點飲品' },
+                { id: 'anping', label: '🌊 安平區' },
+                { id: 'west', label: '🏮 中西區' },
+                { id: 'north', label: '🧭 北區' },
                 { id: 'custom', label: '⭐ 我的收藏' }
             ].map(f => `
             <button onclick="filterSpots('${f.id}')" class="hb-btn px-3 py-1 rounded-full border-[1.5px] border-[#222222] text-xs font-black whitespace-nowrap ${filter === f.id ? 'bg-[#222222] text-white' : 'bg-white text-[#222222]'}">
