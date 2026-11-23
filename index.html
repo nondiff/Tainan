@@ -180,9 +180,18 @@
                 </div>
                 <div class="flex gap-2 pt-1">
                     <button onclick="resetTripMeta()"
-                        class="flex-1 py-2.5 rounded-xl border-2 border-[#222222] bg-[#F5F3EB] text-xs font-black hb-btn">恢復預設</button>
+                        class="flex-1 py-2.5 rounded-xl border-2 border-[#222222] bg-[#F5F3EB] text-xs font-black hb-btn">恢復基本設定</button>
                     <button onclick="saveTripMeta()"
                         class="flex-1 py-2.5 rounded-xl border-2 border-[#222222] bg-[#F6D365] text-xs font-black hb-btn">儲存變更</button>
+                </div>
+                <div class="pt-2 border-t border-dashed border-[#222222]/20 space-y-1.5">
+                    <div class="text-[11px] font-black text-[#555555]">雲端資料庫管理</div>
+                    <button onclick="resetToDefaultSchedule()"
+                        class="w-full py-2.5 rounded-xl border-2 border-[#222222] bg-[#FFFDF5] hover:bg-[#F6D365] text-xs font-black hb-btn flex items-center justify-center gap-1.5 shadow-[0_2px_0_#222222]">
+                        <span>🔄</span>
+                        <span>將程式碼完整預設行程寫入雲端資料庫</span>
+                    </button>
+                    <p class="text-[10px] text-[#888888] font-bold text-center">一鍵重置 Day 1 早上 7 站、Day 1 下午 8 站、Day 2 與完整 25 個口袋地點並同步</p>
                 </div>
             </div>
         </div>
@@ -409,6 +418,40 @@
             </div>
         </div>
     </div>
+
+        <!-- Move Stop to Another Slot Modal -->
+        <div id="move-item-modal"
+            class="fixed inset-0 z-50 bg-black/40 backdrop-blur-[1px] hidden items-center justify-center p-4">
+            <div class="bg-white border-2 border-[#222222] rounded-[24px] w-full max-w-[390px] p-5 space-y-3.5 shadow-[4px_4px_0_#222222]">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-base font-black text-[#222222] flex items-center gap-1.5">
+                            <span>🔄</span>
+                            <span>移動行程時段</span>
+                        </h3>
+                        <p class="text-[11px] font-bold text-[#666666]">將選定站點轉移至其他時段</p>
+                    </div>
+                    <button onclick="closeMoveItemModal()"
+                        class="w-8 h-8 rounded-full border-2 border-[#222222] flex items-center justify-center font-black text-sm hb-btn">✕</button>
+                </div>
+
+                <div class="p-3 bg-[#FFFDF5] border-2 border-[#222222] rounded-2xl space-y-1">
+                    <div class="text-[10px] font-black text-[#888888]">目前選中站點</div>
+                    <div id="move-item-name" class="text-sm font-black text-[#222222]"></div>
+                    <div class="text-[10px] font-bold text-[#666666]">目前所在：<span id="move-item-current-slot" class="font-black text-[#222222]"></span></div>
+                </div>
+
+                <div class="space-y-2">
+                    <div class="text-xs font-black text-[#444444]">選擇要轉移至的時段：</div>
+                    <div id="move-item-slot-options" class="space-y-2"></div>
+                </div>
+
+                <button onclick="closeMoveItemModal()"
+                    class="w-full py-2.5 rounded-xl border-2 border-[#222222] bg-[#F5F3EB] text-xs font-black hb-btn">
+                    取消
+                </button>
+            </div>
+        </div>
 
     <script>
         // ==========================================
@@ -1739,12 +1782,121 @@
             showToast('✨ 已套用智慧最佳順序！', '🎉');
         }
 
+        function renumberSlotItems(items) {
+            const zhNums = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二', '十三', '十四', '十五'];
+            items.forEach((item, idx) => {
+                const numStr = zhNums[idx] || (idx + 1);
+                if (item.time && /第[一二三四五六七八九十\d]+站/.test(item.time)) {
+                    item.time = item.time.replace(/第[一二三四五六七八九十\d]+站/, `第${numStr}站`);
+                } else if (!item.time || item.time.trim() === '') {
+                    item.time = `第${numStr}站`;
+                }
+            });
+        }
+
+        function moveItineraryItem(slotKey, index, direction) {
+            const slot = state.scheduleSlots[slotKey];
+            if (!slot || !slot.items) return;
+            const newIndex = index + direction;
+            if (newIndex < 0 || newIndex >= slot.items.length) return;
+
+            const temp = slot.items[index];
+            slot.items[index] = slot.items[newIndex];
+            slot.items[newIndex] = temp;
+
+            renumberSlotItems(slot.items);
+            saveState();
+            renderCurrentTab();
+            showToast('已調整站點順序！', '↕️');
+        }
+
+        let moveItemTargetInfo = null;
+
+        function openMoveItemModal(fromSlot, index) {
+            const slot = state.scheduleSlots[fromSlot];
+            if (!slot || !slot.items[index]) return;
+            const item = slot.items[index];
+            moveItemTargetInfo = { fromSlot, index };
+
+            const modal = document.getElementById('move-item-modal');
+            document.getElementById('move-item-name').textContent = item.title;
+            document.getElementById('move-item-current-slot').textContent = slot.slotLabel;
+
+            const container = document.getElementById('move-item-slot-options');
+            const slotKeys = ['am1', 'pm1', 'day2'];
+            container.innerHTML = slotKeys.map(k => {
+                const targetSlot = state.scheduleSlots[k];
+                const isCurrent = k === fromSlot;
+                const label = targetSlot ? targetSlot.slotLabel : k;
+                return `
+                    <button onclick="confirmMoveItemToSlot('${k}')" ${isCurrent ? 'disabled' : ''} class="w-full py-2.5 px-3 rounded-xl border-2 border-[#222222] font-black text-xs flex items-center justify-between transition-all ${isCurrent ? 'bg-gray-100 text-gray-400 opacity-60 cursor-not-allowed' : 'bg-[#FFFDF5] hover:bg-[#F6D365] text-[#222222] shadow-[0_2px_0_#222222] hb-btn'}">
+                        <span>移至「${label}」</span>
+                        <span>${isCurrent ? '（目前位置）' : '➔'}</span>
+                    </button>
+                `;
+            }).join('');
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeMoveItemModal() {
+            const modal = document.getElementById('move-item-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+            moveItemTargetInfo = null;
+        }
+
+        function confirmMoveItemToSlot(targetSlotKey) {
+            if (!moveItemTargetInfo) return;
+            const { fromSlot, index } = moveItemTargetInfo;
+            if (fromSlot === targetSlotKey) return;
+
+            const sourceSlot = state.scheduleSlots[fromSlot];
+            const targetSlot = state.scheduleSlots[targetSlotKey];
+            if (!sourceSlot || !targetSlot) return;
+
+            const [movedItem] = sourceSlot.items.splice(index, 1);
+            targetSlot.items.push(movedItem);
+
+            renumberSlotItems(sourceSlot.items);
+            renumberSlotItems(targetSlot.items);
+
+            saveState();
+            closeMoveItemModal();
+            renderCurrentTab();
+            showToast(`已將「${movedItem.title}」移至 ${targetSlot.slotLabel}！`, '🔄');
+        }
+
         function deleteItineraryItem(slotKey, index) {
-            if (!confirm('確定要從行程中移除此站點嗎？（若在口袋名單中仍會保留）')) return;
+            if (!confirm('確定要從行程中移除此站點嗎？（若在口袋名單中仍會保留，隨時可加回）')) return;
             state.scheduleSlots[slotKey].items.splice(index, 1);
+            renumberSlotItems(state.scheduleSlots[slotKey].items);
             saveState();
             renderCurrentTab();
             showToast('已從行程中移除該站點');
+        }
+
+        function resetToDefaultSchedule(confirmPrompt = true) {
+            if (confirmPrompt && !confirm('確定要將所有時段行程與口袋名單恢復為「程式碼預設值」並同步至雲端資料庫嗎？\n\n（將重置 Day 1 早上 7 站、Day 1 下午 8 站、Day 2 與完整 25 個口袋地點，並清空多餘重複站點）')) {
+                return;
+            }
+
+            state.scheduleSlots = JSON.parse(JSON.stringify(DEFAULT_SCHEDULE_SLOTS));
+            state.savedSpots = JSON.parse(JSON.stringify(DEFAULT_SAVED_SPOTS));
+            state.tripMeta = JSON.parse(JSON.stringify(DEFAULT_META));
+            state.checklist = JSON.parse(JSON.stringify(DEFAULT_CHECKLIST));
+            state.parkingInfo = '車子博客停車場-臺南轉運站場（臨停/月租）';
+            state.scooterInfo = '見昌機車出租｜記得拍車身刮痕與確認還車時間';
+            state.hotelInfo = '廣發寓所｜先放行李再騎機車去安平';
+            state.checkedStops = {};
+
+            saveState(false, true);
+            closeEditModal();
+            renderCurrentTab();
+            showToast('已恢復程式碼預設行程，並成功同步至雲端資料庫！', '🎉');
         }
 
         function promptEditNote(itemId) {
@@ -2064,7 +2216,7 @@
                     </div>
                   </div>
 
-                  <!-- Quick Action Buttons: Map & Expense -->
+                  <!-- Quick Action Buttons: Map, Expense, Remove -->
                   <div class="flex items-center gap-1.5 shrink-0">
                     <button onclick="openGoogleMaps('${item.mapQuery.replace(/'/g, "\\'")}')" class="hb-btn bg-[#F6D365] hb-pill px-2.5 py-1 text-[11px] font-black flex items-center gap-1 shadow-sm">
                       <span>📍</span>
@@ -2072,13 +2224,11 @@
                     </button>
                     <button onclick="openStopExpenseModal('${item.id}', '${escapeHtml(item.title)}')" class="hb-btn ${stopTotal > 0 ? 'bg-[#E3EFE0] text-[#222222]' : 'bg-[#F5F3EB] text-[#666666]'} hb-pill px-2 py-1 text-[11px] font-black flex items-center gap-0.5 shadow-sm">
                       <span>💰</span>
-                      <span>${stopTotal > 0 ? `NT$${stopTotal}` : '記帳'}</span>
+                      <span>${stopTotal > 0 ? `NT${stopTotal}` : '記帳'}</span>
                     </button>
-                    ${item.isCustom ? `
-                      <button onclick="deleteItineraryItem('${state.selectedSlot}', ${idx})" title="移除" class="text-xs text-[#aaaaaa] hover:text-red-500 font-black p-1 hb-btn">
-                        ✕
-                      </button>
-                    ` : ''}
+                    <button onclick="deleteItineraryItem('${state.selectedSlot}', ${idx})" title="從行程中移除（口袋名單仍會保留）" class="text-xs text-[#aaaaaa] hover:text-red-500 font-black p-1 hb-btn">
+                      ✕
+                    </button>
                   </div>
                 </div>
 
@@ -2087,16 +2237,30 @@
                   ${item.desc}
                 </p>
 
-                <!-- Tags & Note Indicator -->
+                <!-- Tags, Note & Move Action Controls -->
                 <div class="pl-8 flex items-center justify-between gap-2 flex-wrap border-t border-dashed border-gray-100 pt-1.5">
                   <div class="flex items-center gap-1 flex-wrap">
                     ${(item.tags || []).map(t => `<span class="bg-[#F5F3EB] rounded-full px-2 py-0.5 text-[10px] font-bold text-[#555555]">${t}</span>`).join('')}
+                    <!-- Note Prompt Button -->
+                    <button onclick="promptEditNote('${item.id}')" class="text-[10px] font-bold text-[#666666] hover:text-[#222222] flex items-center gap-0.5 hb-btn ml-0.5">
+                      <span>✏️</span>
+                      <span>${noteVal ? escapeHtml(noteVal) : '<span class="text-[#999999]">加筆記</span>'}</span>
+                    </button>
                   </div>
-                  <!-- Note Prompt Button -->
-                  <button onclick="promptEditNote('${item.id}')" class="text-[11px] font-bold text-[#666666] hover:text-[#222222] flex items-center gap-1 hb-btn">
-                    <span>✏️</span>
-                    <span>${noteVal ? escapeHtml(noteVal) : '<span class="text-[#999999]">加現場筆記</span>'}</span>
-                  </button>
+
+                  <!-- Move Action Strip (▲ 上移, ▼ 下移, 🔄 換時段) -->
+                  <div class="flex items-center gap-1 shrink-0 pt-0.5">
+                    <button onclick="moveItineraryItem('${state.selectedSlot}', ${idx}, -1)" ${idx === 0 ? 'disabled' : ''} title="往前移一站" class="hb-btn px-2 py-0.5 rounded-lg border border-[#222222] text-[10px] font-black ${idx === 0 ? 'bg-gray-100 text-gray-300 cursor-not-allowed opacity-50' : 'bg-white hover:bg-[#F6D365] text-[#222222] shadow-[0_1px_0_#222222]'}">
+                      ▲ 上移
+                    </button>
+                    <button onclick="moveItineraryItem('${state.selectedSlot}', ${idx}, 1)" ${idx === slot.items.length - 1 ? 'disabled' : ''} title="往後移一站" class="hb-btn px-2 py-0.5 rounded-lg border border-[#222222] text-[10px] font-black ${idx === slot.items.length - 1 ? 'bg-gray-100 text-gray-300 cursor-not-allowed opacity-50' : 'bg-white hover:bg-[#F6D365] text-[#222222] shadow-[0_1px_0_#222222]'}">
+                      ▼ 下移
+                    </button>
+                    <button onclick="openMoveItemModal('${state.selectedSlot}', ${idx})" title="移動至其他時段（例如早上/下午/Day2）" class="hb-btn px-2 py-0.5 rounded-lg border border-[#222222] bg-[#FFFDF5] hover:bg-[#CBE2F6] text-[10px] font-black text-[#222222] flex items-center gap-0.5 shadow-[0_1px_0_#222222]">
+                      <span>🔄</span>
+                      <span>移至時段</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             `;
