@@ -7,6 +7,9 @@
     <title>台南雙人小旅行｜旅遊手帳</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Firebase SDK (Compat Version for Web) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
     <!-- Google Fonts: Plus Jakarta Sans & Noto Sans TC -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -409,6 +412,105 @@
 
     <script>
         // ==========================================
+        // 0. FIREBASE REALTIME DATABASE CONFIG & SYNC
+        // ==========================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyCVeXzqBURwLSriTzHR55yXWTmIaaM3Hlw",
+            authDomain: "tainan-a4d0c.firebaseapp.com",
+            databaseURL: "https://tainan-a4d0c-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "tainan-a4d0c",
+            storageBucket: "tainan-a4d0c.firebasestorage.app",
+            messagingSenderId: "19273623666",
+            appId: "1:19273623666:web:410c45bf67c7139805faeb",
+            measurementId: "G-M51THYGXX3"
+        };
+
+        let db = null;
+        let tripRef = null;
+        let isReceivingCloudUpdate = false;
+
+        try {
+            if (window.firebase) {
+                firebase.initializeApp(firebaseConfig);
+                db = firebase.database();
+                tripRef = db.ref('trips/tainan_main');
+            }
+        } catch (e) {
+            console.warn('Firebase init error:', e);
+        }
+
+        function updateCloudStatus(status) {
+            const badge = document.getElementById('cloud-status-badge');
+            const dot = document.getElementById('cloud-status-dot');
+            const text = document.getElementById('cloud-status-text');
+            if (!badge || !dot || !text) return;
+
+            switch (status) {
+                case 'synced':
+                    dot.className = 'w-1.5 h-1.5 rounded-full bg-emerald-500';
+                    text.textContent = '雲端已同步';
+                    badge.className = 'hb-pill px-2.5 py-0.5 text-[10px] font-black bg-[#E3EFE0] text-[#1e5424] flex items-center gap-1 shadow-sm';
+                    break;
+                case 'saving':
+                    dot.className = 'w-1.5 h-1.5 rounded-full bg-amber-500 animate-ping';
+                    text.textContent = '同步中...';
+                    badge.className = 'hb-pill px-2.5 py-0.5 text-[10px] font-black bg-[#FFF9E6] text-[#855e10] flex items-center gap-1 shadow-sm';
+                    break;
+                case 'connecting':
+                    dot.className = 'w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse';
+                    text.textContent = '雲端連線中';
+                    badge.className = 'hb-pill px-2.5 py-0.5 text-[10px] font-black bg-[#CBE2F6] text-[#1c4467] flex items-center gap-1 shadow-sm';
+                    break;
+                case 'error':
+                    dot.className = 'w-1.5 h-1.5 rounded-full bg-rose-500';
+                    text.textContent = '離線暫存';
+                    badge.className = 'hb-pill px-2.5 py-0.5 text-[10px] font-black bg-[#F8EAE8] text-[#9e2a2b] flex items-center gap-1 shadow-sm';
+                    break;
+                default:
+                    dot.className = 'w-1.5 h-1.5 rounded-full bg-gray-400';
+                    text.textContent = '本機模式';
+                    badge.className = 'hb-pill px-2.5 py-0.5 text-[10px] font-black bg-[#F5F3EB] text-[#555555] flex items-center gap-1 shadow-sm';
+                    break;
+            }
+        }
+
+        function initCloudSync() {
+            if (!tripRef) {
+                updateCloudStatus('offline');
+                return;
+            }
+
+            updateCloudStatus('connecting');
+
+            tripRef.on('value', snapshot => {
+                const cloudData = snapshot.val();
+                if (cloudData) {
+                    isReceivingCloudUpdate = true;
+                    if (cloudData.tripMeta) state.tripMeta = cloudData.tripMeta;
+                    if (cloudData.checkedStops) state.checkedStops = cloudData.checkedStops;
+                    if (cloudData.stopNotes) state.stopNotes = cloudData.stopNotes;
+                    if (cloudData.checklist) state.checklist = cloudData.checklist;
+                    if (cloudData.parkingInfo !== undefined) state.parkingInfo = cloudData.parkingInfo;
+                    if (cloudData.scooterInfo !== undefined) state.scooterInfo = cloudData.scooterInfo;
+                    if (cloudData.hotelInfo !== undefined) state.hotelInfo = cloudData.hotelInfo;
+                    if (cloudData.scheduleSlots) state.scheduleSlots = cloudData.scheduleSlots;
+                    if (cloudData.savedSpots) state.savedSpots = cloudData.savedSpots;
+                    if (cloudData.expenses) state.expenses = cloudData.expenses;
+
+                    saveLocalState();
+                    renderCurrentTab();
+                    isReceivingCloudUpdate = false;
+                    updateCloudStatus('synced');
+                } else {
+                    saveState(false, true);
+                }
+            }, err => {
+                console.error('Firebase listen error:', err);
+                updateCloudStatus('error');
+            });
+        }
+
+        // ==========================================
         // 1. DATA MODELS & LOCALSTORAGE INITIALIZATION
         // ==========================================
         const DEFAULT_META = {
@@ -718,7 +820,7 @@
             window.open(url, '_blank', 'noopener,noreferrer');
         }
 
-        function saveState() {
+        function saveLocalState() {
             localStorage.setItem('tn_meta_v1', JSON.stringify(state.tripMeta));
             localStorage.setItem('tn_checked_stops_v1', JSON.stringify(state.checkedStops));
             localStorage.setItem('tn_stop_notes_v1', JSON.stringify(state.stopNotes));
@@ -729,6 +831,39 @@
             localStorage.setItem('tn_slots_v2', JSON.stringify(state.scheduleSlots));
             localStorage.setItem('tn_saved_spots_v2', JSON.stringify(state.savedSpots));
             localStorage.setItem('tn_expenses_v2', JSON.stringify(state.expenses));
+        }
+
+        let cloudSaveTimer = null;
+        function saveState(skipCloud = false, forceCloud = false) {
+            saveLocalState();
+            if ((!forceCloud && (isReceivingCloudUpdate || skipCloud)) || !tripRef) return;
+
+            updateCloudStatus('saving');
+            clearTimeout(cloudSaveTimer);
+            cloudSaveTimer = setTimeout(() => {
+                const payload = {
+                    tripMeta: state.tripMeta,
+                    checkedStops: state.checkedStops,
+                    stopNotes: state.stopNotes,
+                    checklist: state.checklist,
+                    parkingInfo: state.parkingInfo,
+                    scooterInfo: state.scooterInfo,
+                    hotelInfo: state.hotelInfo,
+                    scheduleSlots: state.scheduleSlots,
+                    savedSpots: state.savedSpots,
+                    expenses: state.expenses,
+                    updatedAt: Date.now()
+                };
+
+                tripRef.set(payload)
+                    .then(() => {
+                        updateCloudStatus('synced');
+                    })
+                    .catch(err => {
+                        console.error('Cloud save failed:', err);
+                        updateCloudStatus('error');
+                    });
+            }, 300);
         }
 
         // ==========================================
@@ -1428,7 +1563,13 @@
         <!-- Header Info Bar -->
         <div class="flex items-center justify-between pt-1">
           <div>
-            <h1 class="text-2xl font-black text-[#222222] tracking-tight">${escapeHtml(state.tripMeta.title)}</h1>
+            <div class="flex items-center gap-2">
+              <h1 class="text-2xl font-black text-[#222222] tracking-tight">${escapeHtml(state.tripMeta.title)}</h1>
+              <span id="cloud-status-badge" class="hb-pill px-2.5 py-0.5 text-[10px] font-black bg-[#E3EFE0] text-[#1e5424] flex items-center gap-1 shadow-sm">
+                <span id="cloud-status-dot" class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                <span id="cloud-status-text">雲端連線中</span>
+              </span>
+            </div>
             <p class="text-[11px] font-bold text-[#666666]">${escapeHtml(state.tripMeta.subtitle)} ・ ${escapeHtml(state.tripMeta.regions)}</p>
           </div>
           <button onclick="openEditModal()" class="hb-btn bg-white border-2 border-[#222222] rounded-full px-2.5 py-1 text-xs font-black flex items-center gap-1 shadow-sm">
@@ -1886,6 +2027,7 @@
 
         window.onload = function () {
             switchTab('itinerary');
+            initCloudSync();
         };
     </script>
 </body>
