@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>台南雙人小旅行｜11/28 — 11/29 旅遊手帳</title>
+    <title>台南雙人小旅行｜旅遊手帳</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Plus Jakarta Sans & Noto Sans TC -->
@@ -22,7 +22,6 @@
             --soft-pink: #F8EAE8;
             --soft-mint: #E3EFE0;
             --sky-blue: #CBE2F6;
-            --emergency-red: #E05252;
         }
 
         body {
@@ -58,7 +57,7 @@
         .hb-card {
             background-color: #FFFFFF;
             border: 2px solid #222222;
-            border-radius: 22px;
+            border-radius: 20px;
         }
 
         .hb-pill {
@@ -67,7 +66,7 @@
         }
 
         .hb-btn {
-            transition: transform 0.12s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+            transition: transform 0.1s ease, background-color 0.15s ease, box-shadow 0.15s ease;
             cursor: pointer;
         }
 
@@ -83,233 +82,50 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-
-        /* ==========================================
-       STORYBOOK SVG ANIMATIONS
-       ========================================== */
-        @keyframes spinSlow {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .sun-rays-spin {
-            transform-origin: 332px 38px;
-            animation: spinSlow 24s linear infinite;
-        }
-
-        @keyframes cloudDriftA {
-
-            0%,
-            100% {
-                transform: translateX(0px);
-            }
-
-            50% {
-                transform: translateX(10px);
-            }
-        }
-
-        @keyframes cloudDriftB {
-
-            0%,
-            100% {
-                transform: translateX(0px);
-            }
-
-            50% {
-                transform: translateX(-10px);
-            }
-        }
-
-        .cloud-drift-a {
-            animation: cloudDriftA 7.5s ease-in-out infinite;
-        }
-
-        .cloud-drift-b {
-            animation: cloudDriftB 8.5s ease-in-out infinite;
-        }
-
-        @keyframes palmSway {
-
-            0%,
-            100% {
-                transform: rotate(-2.5deg);
-            }
-
-            50% {
-                transform: rotate(3.5deg);
-            }
-        }
-
-        .palm-sway {
-            transform-origin: 54px 136px;
-            animation: palmSway 3.8s ease-in-out infinite;
-        }
-
-        @keyframes scooterBounce {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-1.5px);
-            }
-        }
-
-        .scooter-bounce {
-            animation: scooterBounce 0.65s ease-in-out infinite;
-        }
-
-        @keyframes wheelSpin {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .wheel-spin {
-            transform-box: fill-box;
-            transform-origin: center;
-            animation: wheelSpin 1s linear infinite;
-        }
-
-        @keyframes waveShimmer {
-
-            0%,
-            100% {
-                transform: translateX(0px);
-                opacity: 0.85;
-            }
-
-            50% {
-                transform: translateX(6px);
-                opacity: 0.4;
-            }
-        }
-
-        .wave-shimmer {
-            animation: waveShimmer 3s ease-in-out infinite;
-        }
-
-        @keyframes rainFall {
-            0% {
-                transform: translate(0px, -12px);
-                opacity: 0;
-            }
-
-            30% {
-                opacity: 0.85;
-            }
-
-            100% {
-                transform: translate(-12px, 34px);
-                opacity: 0;
-            }
-        }
-
-        .rain-drop-1 {
-            animation: rainFall 1.1s linear infinite;
-        }
-
-        .rain-drop-2 {
-            animation: rainFall 1.1s linear 0.35s infinite;
-        }
-
-        .rain-drop-3 {
-            animation: rainFall 1.1s linear 0.7s infinite;
-        }
-
-        @keyframes dashFlow {
-            to {
-                stroke-dashoffset: -24;
-            }
-        }
-
-        .route-dash {
-            animation: dashFlow 1.4s linear infinite;
-        }
     </style>
 </head>
 
 <body>
     <div class="app-shell flex flex-col pb-8" id="app">
-        <!-- Top 5-Tab Navigation Bar (Adapted for Tainan Trip) -->
+        <!-- Top 3-Tab Navigation Bar (精簡為三大核心頁籤) -->
         <header class="sticky top-0 z-30 bg-[#F5F3EB]/95 backdrop-blur-sm pt-3 px-3 pb-2">
             <nav aria-label="主導覽列"
-                class="bg-white border-2 border-[#222222] rounded-[22px] p-1.5 grid grid-cols-5 gap-1">
-                <button onclick="switchTab('home')" data-tab="home"
-                    class="nav-tab hb-btn flex flex-col items-center justify-center py-1.5 px-1 rounded-[15px] border-2 border-transparent">
-                    <svg class="w-5 h-5 mb-0.5" viewBox="0 0 24 24" fill="none" stroke="#222222" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="4"></circle>
-                        <path
-                            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41">
-                        </path>
-                    </svg>
-                    <span class="text-[11px] font-black leading-none tracking-tight">首頁</span>
-                </button>
-
+                class="bg-white border-2 border-[#222222] rounded-[22px] p-1.5 grid grid-cols-3 gap-1.5 shadow-sm">
                 <button onclick="switchTab('itinerary')" data-tab="itinerary"
-                    class="nav-tab hb-btn flex flex-col items-center justify-center py-1.5 px-1 rounded-[15px] border-2 border-transparent">
-                    <svg class="w-5 h-5 mb-0.5" viewBox="0 0 24 24" fill="none" stroke="#222222" stroke-width="2"
+                    class="nav-tab hb-btn flex items-center justify-center gap-1.5 py-2 px-2 rounded-[16px] border-2 border-transparent transition-all">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="#222222" stroke-width="2.2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="4" width="18" height="18" rx="3"></rect>
                         <line x1="16" y1="2" x2="16" y2="6"></line>
                         <line x1="8" y1="2" x2="8" y2="6"></line>
                         <line x1="3" y1="10" x2="21" y2="10"></line>
                     </svg>
-                    <span class="text-[11px] font-black leading-none tracking-tight">行程</span>
+                    <span class="text-xs font-black tracking-tight">行程表</span>
                 </button>
 
                 <button onclick="switchTab('spots')" data-tab="spots"
-                    class="nav-tab hb-btn flex flex-col items-center justify-center py-1.5 px-1 rounded-[15px] border-2 border-transparent">
-                    <svg class="w-5 h-5 mb-0.5" viewBox="0 0 24 24" fill="none" stroke="#222222" stroke-width="2"
+                    class="nav-tab hb-btn flex items-center justify-center gap-1.5 py-2 px-2 rounded-[16px] border-2 border-transparent transition-all">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="#222222" stroke-width="2.2"
                         stroke-linecap="round" stroke-linejoin="round">
-                        <path
-                            d="M4 11h16a1 1 0 0 1 1 1v.5a7.5 7.5 0 0 1-7.5 7.5h-3A7.5 7.5 0 0 1 3 12.5V12a1 1 0 0 1 1-1z">
-                        </path>
-                        <path d="M8 7c0-1 1-1.5 1-2.5S8 3 8 3"></path>
-                        <path d="M12 7c0-1 1-1.5 1-2.5S12 3 12 3"></path>
-                        <path d="M16 7c0-1 1-1.5 1-2.5S16 3 16 3"></path>
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                     </svg>
-                    <span class="text-[11px] font-black leading-none tracking-tight">美食/備案</span>
+                    <span class="text-xs font-black tracking-tight">口袋景點</span>
                 </button>
 
-                <button onclick="switchTab('checklist')" data-tab="checklist"
-                    class="nav-tab hb-btn flex flex-col items-center justify-center py-1.5 px-1 rounded-[15px] border-2 border-transparent">
-                    <svg class="w-5 h-5 mb-0.5" viewBox="0 0 24 24" fill="none" stroke="#222222" stroke-width="2"
+                <button onclick="switchTab('memo')" data-tab="memo"
+                    class="nav-tab hb-btn flex items-center justify-center gap-1.5 py-2 px-2 rounded-[16px] border-2 border-transparent transition-all">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="#222222" stroke-width="2.2"
                         stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="4" y="4" width="16" height="16" rx="3"></rect>
-                        <polyline points="9 12 11 14 15 10"></polyline>
+                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
                     </svg>
-                    <span class="text-[11px] font-black leading-none tracking-tight">清單</span>
-                </button>
-
-                <button onclick="switchTab('info')" data-tab="info"
-                    class="nav-tab hb-btn flex flex-col items-center justify-center py-1.5 px-1 rounded-[15px] border-2 border-transparent">
-                    <svg class="w-5 h-5 mb-0.5" viewBox="0 0 24 24" fill="none" stroke="#222222" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="9"></circle>
-                        <line x1="12" y1="16" x2="12" y2="12"></line>
-                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                    </svg>
-                    <span class="text-[11px] font-black leading-none tracking-tight">住宿/車況</span>
+                    <span class="text-xs font-black tracking-tight">住宿・清單</span>
                 </button>
             </nav>
         </header>
 
         <!-- Main Content Container -->
-        <main id="main-content" class="px-3.5 pt-1 flex-1 space-y-4"></main>
+        <main id="main-content" class="px-3.5 pt-1 flex-1 space-y-3.5"></main>
 
         <!-- Toast Notification Banner -->
         <div id="toast"
@@ -317,16 +133,16 @@
             <div
                 class="bg-[#222222] text-white border-2 border-white px-4 py-2 rounded-full text-xs font-bold shadow-lg flex items-center gap-2 whitespace-nowrap">
                 <span id="toast-icon">✅</span>
-                <span id="toast-text">已複製到剪貼簿</span>
+                <span id="toast-text">已更新</span>
             </div>
         </div>
 
-                <!-- Edit Trip Modal -->
+        <!-- Edit Trip Modal -->
         <div id="edit-modal"
             class="fixed inset-0 z-50 bg-black/40 backdrop-blur-[1px] hidden items-center justify-center p-4">
             <div class="bg-white border-2 border-[#222222] rounded-[24px] w-full max-w-[390px] p-5 space-y-4">
                 <div class="flex items-center justify-between">
-                    <h3 class="text-lg font-black flex items-center gap-1.5">✏️ 編輯旅遊手帳資訊</h3>
+                    <h3 class="text-lg font-black flex items-center gap-1.5">✏️ 編輯旅遊資訊</h3>
                     <button onclick="closeEditModal()"
                         class="w-8 h-8 rounded-full border-2 border-[#222222] flex items-center justify-center font-black text-sm hb-btn">✕</button>
                 </div>
@@ -354,7 +170,7 @@
                         </div>
                     </div>
                     <div>
-                        <label class="block mb-1 text-[#555555]">個人備忘錄（顯示於首頁）</label>
+                        <label class="block mb-1 text-[#555555]">個人備忘提醒</label>
                         <input id="edit-memo" type="text"
                             class="w-full border-2 border-[#222222] rounded-xl px-3 py-2 text-xs font-bold focus:outline-none focus:bg-[#FFFDF5]" />
                     </div>
@@ -373,7 +189,7 @@
             class="fixed inset-0 z-50 bg-black/40 backdrop-blur-[1px] hidden items-center justify-center p-4">
             <div class="bg-white border-2 border-[#222222] rounded-[24px] w-full max-w-[390px] max-h-[90vh] overflow-y-auto no-scrollbar p-5 space-y-3.5">
                 <div class="flex items-center justify-between">
-                    <h3 class="text-lg font-black flex items-center gap-1.5">➕ 新增想去的地點</h3>
+                    <h3 class="text-base font-black flex items-center gap-1.5">➕ 新增想去的地點</h3>
                     <button onclick="closeAddSpotModal()"
                         class="w-8 h-8 rounded-full border-2 border-[#222222] flex items-center justify-center font-black text-sm hb-btn">✕</button>
                 </div>
@@ -422,13 +238,13 @@
                         </div>
                     </div>
                     <div>
-                        <label class="block mb-1 text-[#555555]">推薦特色／必吃小撇步</label>
+                        <label class="block mb-1 text-[#555555]">推薦特色／必點小撇步</label>
                         <input id="new-spot-tip" type="text" placeholder="例：必點招牌牛肉湯、二樓看夕陽"
                             class="w-full border-2 border-[#222222] rounded-xl px-3 py-2 text-xs font-bold focus:outline-none focus:bg-[#FFFDF5]" />
                     </div>
                     <div>
                         <label class="block mb-1 text-[#555555]">雨天／人潮備案</label>
-                        <input id="new-spot-backup" type="text" placeholder="例：若排隊超過20分鐘改去二店或咖啡店"
+                        <input id="new-spot-backup" type="text" placeholder="例：若排隊過長改去二店或咖啡店"
                             class="w-full border-2 border-[#222222] rounded-xl px-3 py-2 text-xs font-bold focus:outline-none focus:bg-[#FFFDF5]" />
                     </div>
                     <div>
@@ -458,23 +274,23 @@
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-1.5">
                         <span class="text-xl">✨</span>
-                        <h3 class="text-lg font-black text-[#222222]">智慧最佳遊玩順序</h3>
+                        <h3 class="text-base font-black text-[#222222]">智慧最佳遊玩順序推薦</h3>
                     </div>
                     <button onclick="closeOptimizeModal()"
                         class="w-8 h-8 rounded-full border-2 border-[#222222] flex items-center justify-center font-black text-sm hb-btn">✕</button>
                 </div>
 
                 <div id="optimize-summary-box" class="bg-[#FFF9E6] border-2 border-[#222222] rounded-2xl p-3.5 space-y-2 text-xs">
-                    <!-- Injected dynamically: logic reasons & estimated time savings -->
+                    <!-- Injected dynamically -->
                 </div>
 
                 <div class="space-y-2">
                     <div class="flex items-center justify-between text-xs font-black text-[#555555]">
                         <span>📋 建議最佳遊玩路線</span>
-                        <span class="text-[11px] bg-[#E3EFE0] hb-pill px-2 py-0.5 text-[#222222]">順向動線・省時</span>
+                        <span class="text-[10px] bg-[#E3EFE0] hb-pill px-2 py-0.5 text-[#222222]">順向動線・省時</span>
                     </div>
                     <div id="optimize-preview-list" class="space-y-1.5 text-xs font-bold max-h-56 overflow-y-auto no-scrollbar">
-                        <!-- Injected dynamically: preview cards with sequence arrows -->
+                        <!-- Injected dynamically -->
                     </div>
                 </div>
 
@@ -496,7 +312,7 @@
             <div class="bg-white border-2 border-[#222222] rounded-[24px] w-full max-w-[390px] max-h-[90vh] overflow-y-auto no-scrollbar p-5 space-y-4">
                 <div class="flex items-center justify-between">
                     <div>
-                        <div class="text-[11px] font-black text-[#888888]">景點簡單記帳</div>
+                        <div class="text-[11px] font-black text-[#888888]">景點記帳</div>
                         <h3 id="stop-expense-title" class="text-base font-black text-[#222222] leading-tight line-clamp-1"></h3>
                     </div>
                     <button onclick="closeStopExpenseModal()"
@@ -505,7 +321,7 @@
 
                 <!-- Spot Current Total Badge -->
                 <div class="bg-[#F8EAE8] border-2 border-[#222222] rounded-2xl p-3 flex items-center justify-between">
-                    <span class="text-xs font-black text-[#222222]">本站累積花費</span>
+                    <span class="text-xs font-black text-[#222222]">本站累積支出</span>
                     <span id="stop-expense-total-display" class="text-lg font-black text-[#222222] tabular-nums">NT$ 0</span>
                 </div>
 
@@ -550,9 +366,8 @@
                     <div>
                         <h3 class="text-lg font-black text-[#222222] flex items-center gap-1.5">
                             <span>📊</span>
-                            <span>旅費統計總覽</span>
+                            <span>台南小旅行・旅費總覽</span>
                         </h3>
-                        <p class="text-[11px] font-bold text-[#666666]">台南雙人小旅行・累積花費</p>
                     </div>
                     <button onclick="closeGlobalExpenseModal()"
                         class="w-8 h-8 rounded-full border-2 border-[#222222] flex items-center justify-center font-black text-sm hb-btn">✕</button>
@@ -592,15 +407,15 @@
         </div>
     </div>
 
-<script>
+    <script>
         // ==========================================
-        // 1. STATE & PERSISTENT STORAGE
+        // 1. DATA MODELS & LOCALSTORAGE INITIALIZATION
         // ==========================================
         const DEFAULT_META = {
             title: '台南雙人小旅行',
-            subtitle: '2026.11.28 (六) — 11.29 (日)・第一天早上行程',
+            subtitle: '2026.11.28 (六) — 11.29 (日)',
             regions: '北區・中西區・安平',
-            travelers: '2 人同行・開車＋租機車',
+            travelers: '2 人同行・租機車自由行',
             memo: '記得帶汽車＆機車駕照｜廣發寓所放行李後騎車去安平'
         };
 
@@ -608,17 +423,17 @@
             {
                 category: '證件與交通必備',
                 items: [
-                    { id: 't1', text: '汽車駕照正本（開車前往台南與停車用）', done: false },
+                    { id: 't1', text: '汽車駕照正本（停車場取車備用）', done: false },
                     { id: 't2', text: '普通重型機車駕照正本（見昌租機車必帶）', done: false },
                     { id: 't3', text: '身分證／健保卡與手機充電線、行動電源', done: false },
-                    { id: 't4', text: '廣發寓所訂房確認與入住資訊', done: false }
+                    { id: 't4', text: '廣發寓所訂房確認與入住須知', done: false }
                 ]
             },
             {
                 category: '穿搭與隨身小物',
                 items: [
-                    { id: 't5', text: '防曬乳（朝鮮美人藍色防曬）＋ 太陽眼鏡／遮陽帽', done: false },
-                    { id: 't6', text: '騎機車防風薄外套與透氣上衣（安平海邊風大）', done: false },
+                    { id: 't5', text: '防曬乳（朝鮮美人藍色防曬）＋ 墨鏡/遮陽帽', done: false },
+                    { id: 't6', text: '防風薄外套（安平海邊風大）', done: false },
                     { id: 't7', text: '隨身保溫瓶／無糖茶飲與個人常用小物', done: false }
                 ]
             }
@@ -633,8 +448,8 @@
                 district: '北區',
                 openHours: '04:30 - 13:00',
                 stayMin: '45分鐘',
-                tip: '現沖牛肉湯搭配肉燥飯很有飽足感，早上時段建議提早前往，避免久候。',
-                backup: '附近其他牛肉湯或傳統台式早餐店',
+                tip: '現沖溫體牛肉湯搭配肉燥飯，早起前往避免久候。',
+                backup: '附近其他牛肉湯或傳統台式鹹粥',
                 mapQuery: '西羅殿牛肉湯',
                 color: '#F8EAE8',
                 isDefault: true
@@ -647,8 +462,8 @@
                 district: '北區',
                 openHours: '06:00 - 21:00',
                 stayMin: '40分鐘',
-                tip: '安排在早餐後散步參拜，節奏剛剛好；參拜時留意香爐與階梯動線。',
-                backup: '周邊巷弄散步或找咖啡店稍作歇息',
+                tip: '早餐後散步參拜，欣賞傳統建築雕刻，輕鬆不趕路。',
+                backup: '周邊巷弄漫步或找咖啡店稍作歇息',
                 mapQuery: '臺南開基玉皇宮',
                 color: '#F6D365',
                 isDefault: true
@@ -661,8 +476,8 @@
                 district: '北區',
                 openHours: '09:00 - 17:30',
                 stayMin: '30分鐘',
-                tip: '作為早茶點心很清爽，可先在卡片筆記記下想吃的配料或甜度偏好。',
-                backup: '中西區或北區其他古早味豆花店',
+                tip: '古早味純手工豆花，糖水清甜、消暑解膩。',
+                backup: '中西區或北區其他傳統古早味豆花店',
                 mapQuery: '無名豆花 台南',
                 color: '#E3EFE0',
                 isDefault: true
@@ -675,8 +490,8 @@
                 district: '安平區',
                 openHours: '10:00 - 19:00',
                 stayMin: '90分鐘',
-                tip: '適合徒步漫遊，可品嚐蝦捲、豆花、椪餅等在地小吃，買買伴手禮。',
-                backup: '遇到陣雨可改逛室內文創店家或提早回廣發寓所休息',
+                tip: '徒步漫遊安平古蹟巷弄，品嚐蝦捲、椪餅等在地小吃。',
+                backup: '遇到陣雨可改逛室內文創店家或提早回廣發寓所',
                 mapQuery: '安平老街',
                 color: '#CBE2F6',
                 isDefault: true
@@ -689,7 +504,7 @@
                 district: '安平區',
                 openHours: '24小時（建議 16:30 - 17:40 前往）',
                 stayMin: '50分鐘',
-                tip: '安平絕美落日，海風徐徐，欣賞夕陽入海的最佳拍照點。',
+                tip: '安平看落日與海風的最佳打卡景點。',
                 backup: '大魚的祝福或林默娘公園',
                 mapQuery: '觀夕平台 台南',
                 color: '#CBE2F6',
@@ -698,7 +513,7 @@
             {
                 id: 'spot_chikan',
                 name: '赤崁樓與神農街商圈',
-                tag: '🏛️ 古蹟巷弄',
+                tag: '🏛️ 古蹟夜景',
                 category: 'spot',
                 district: '中西區',
                 openHours: '08:30 - 21:30',
@@ -717,7 +532,7 @@
                 district: '中西區',
                 openHours: '08:00 - 16:00',
                 stayMin: '75分鐘',
-                tip: '割包、富盛號碗粿、修安扁擔豆花、金得春捲集中地，建議空腹前往！',
+                tip: '割包、富盛號碗粿、修安扁擔豆花、春捲集中地！',
                 backup: '保安路美食街',
                 mapQuery: '國華街三段 台南',
                 color: '#F6D365',
@@ -728,18 +543,16 @@
         const DEFAULT_SCHEDULE_SLOTS = {
             am1: {
                 slotLabel: 'Day 1 早上',
-                title: '停車 → 西羅殿牛肉湯 → 開基玉皇宮 → 無名豆花 → 見昌租車 → 廣發寓所 → 安平',
-                badge: '🚗 轉運站停車＋🛵 騎車去安平',
+                title: '轉運站停車 ➔ 吃牛肉湯 ➔ 玉皇宮參拜 ➔ 無名豆花 ➔ 租機車 ➔ 放行李 ➔ 騎車去安平',
+                badge: '🚗 轉運站出發＋🛵 騎車去安平',
                 badgeColor: '#F6D365',
-                rainyTip: '☔ 雨天備案提示：西羅殿牛肉湯與無名豆花多為快速用餐，騎機車往安平前可先穿好雨衣或將背包放入車廂。',
                 items: [
                     {
                         id: 's1',
                         time: '第一站・停車',
-                        title: '車子博客停車場 - 臺南轉運站場（臨停/月租）',
-                        desc: '抵達台南後先將汽車停妥於臺南轉運站場周邊的車子博客停車場，確認臨停/月租費率與取車動線，方便後續步行或搭車銜接市區行程。',
-                        tags: ['🅿️ 臨停/月租', '📍 轉運站周邊'],
-                        backup: '若轉運站場車位已滿，可改停周邊公有或民營平面停車場。',
+                        title: '車子博客停車場 - 臺南轉運站場',
+                        desc: '汽車停妥於臺南轉運站場周邊車子博客停車場，確認計費與取車動線。',
+                        tags: ['🅿️ 轉運站臨停', '📍 北區'],
                         mapQuery: '臺南轉運站 停車場',
                         district: '北區',
                         openHours: '24小時',
@@ -749,9 +562,8 @@
                         id: 's2',
                         time: '第二站・早餐',
                         title: '西羅殿牛肉湯',
-                        desc: '開啟台南早起美食第一站！現沖溫體牛肉湯搭配肉燥飯與白飯，建議留意現場人潮與營業時段，早點到比較不用久等。',
-                        tags: ['🥣 必吃早餐', '⏰ 建議早到'],
-                        backup: '備案：若現場排隊太長或已售完，可改吃附近人氣牛肉湯或傳統鹹粥。',
+                        desc: '台南第一餐溫體牛肉湯配肉燥飯，早點到不用排隊！',
+                        tags: ['🥣 必吃早餐', '⏰ 早點到'],
                         mapQuery: '西羅殿牛肉湯',
                         district: '北區',
                         openHours: '04:30 - 13:00',
@@ -761,9 +573,8 @@
                         id: 's3',
                         time: '第三站・廟宇',
                         title: '臺南開基玉皇宮',
-                        desc: '吃飽後順路前往台南歷史悠久的開基玉皇宮參拜祈福，欣賞傳統廟宇建築與雕刻細節，節奏輕鬆不趕路。',
-                        tags: ['⛩️ 參拜祈福', '🏛️ 古蹟廟宇'],
-                        backup: '備案：若遇陣雨可在廟宇廊下稍作休息並查看雨勢。',
+                        desc: '順路參拜祈福，欣賞歷史廟宇雕刻建築，節奏悠閒。',
+                        tags: ['⛩️ 參拜祈福', '📍 北區'],
                         mapQuery: '臺南開基玉皇宮',
                         district: '北區',
                         openHours: '06:00 - 21:00',
@@ -773,9 +584,8 @@
                         id: 's4',
                         time: '第四站・點心',
                         title: '無名豆花',
-                        desc: '逛完廟宇來一碗綿密古早味豆花當早茶點心，甜度適中、消暑解膩，幫上午行程補充能量。',
-                        tags: ['🍮 古早味點心', '❄️ 消暑甜品'],
-                        backup: '備案：附近若排隊較長，可改去市區其他傳統豆花或甜湯店。',
+                        desc: '來一碗綿密古早味傳統豆花當早茶點心，消暑解膩。',
+                        tags: ['🍮 古早味甜點', '❄️ 清爽'],
                         mapQuery: '無名豆花 台南',
                         district: '北區',
                         openHours: '09:00 - 17:30',
@@ -784,10 +594,9 @@
                     {
                         id: 's5',
                         time: '第五站・租機車',
-                        title: '租機車 - 見昌機車出租',
-                        desc: '前往見昌辦理租機車手續，記得攜帶駕照、錄影確認車況與燈光煞車，並記下還車時間與聯絡電話。',
-                        tags: ['🛵 租機車', '🪪 記得帶駕照'],
-                        backup: '備案：取車後先在附近熟悉煞車與油門手感再出發。',
+                        title: '見昌機車出租',
+                        desc: '辦理租機車手續，確認車身刮痕與煞車油門手感，記下還車時間。',
+                        tags: ['🛵 租機車', '🪪 帶駕照'],
                         mapQuery: '見昌租機車 台南',
                         district: '北區',
                         openHours: '08:00 - 20:30',
@@ -795,23 +604,21 @@
                     },
                     {
                         id: 's6',
-                        time: '第六站・飯店',
+                        time: '第六站・放行李',
                         title: '廣發寓所',
-                        desc: '騎機車先前往廣發寓所寄放行李或辦理入住手續，把多餘物品留在住宿處，減輕後續騎車負擔。',
-                        tags: ['🏨 放行李/入住', '🧳 輕裝出發'],
-                        backup: '備案：若尚未到進房時間，可先寄放行李再前往安平。',
+                        desc: '騎機車先前往廣發寓所寄放行李或辦入住，輕裝出發。',
+                        tags: ['🏨 住宿放行李', '📍 中西區'],
                         mapQuery: '廣發寓所',
                         district: '中西區',
-                        openHours: '15:00 入住（可先放行李）',
+                        openHours: '15:00 入住 (可先寄放)',
                         category: 'hotel'
                     },
                     {
                         id: 's7',
                         time: '第七站・移動',
-                        title: '騎機車去安平',
-                        desc: '從廣發寓所騎機車往安平方向移動，沿途注意市區車流與測速照相，準備展開安平散步與吃吃喝喝！',
-                        tags: ['🛵 前往安平', '⚠️ 注意行車安全'],
-                        backup: '備案：若遇下雨可先停妥機車於室內景點或咖啡廳躲雨。',
+                        title: '騎機車前往安平',
+                        desc: '從住宿處騎車前往安平，展開安平老街漫步與海景夕陽！',
+                        tags: ['🛵 移動中', '⚠️ 注意車流'],
                         mapQuery: '安平 台南',
                         district: '安平區',
                         openHours: '全天',
@@ -821,18 +628,16 @@
             },
             pm1: {
                 slotLabel: 'Day 1 下午',
-                title: '安平周邊散步・老街與晚餐（可隨時補充）',
-                badge: '🌊 安平移動日',
+                title: '安平老街散步 ➔ 品嚐在地小吃 ➔ 觀夕平台夕陽 ➔ 晚餐',
+                badge: '🌊 安平老街與海景',
                 badgeColor: '#CBE2F6',
-                rainyTip: '☔ 下午若遇下雨，可優先安排室內空間、伴手禮店或咖啡廳休息。',
                 items: [
                     {
                         id: 'pm_a1',
                         time: '下午時段・安平',
-                        title: '安平海景／老街散步（可依需求調整）',
-                        desc: '預留給安平老街散步、吃特色小吃、看夕陽海景的彈性時段，可直接用下方筆記記錄想去的景點與美食店家。',
-                        tags: ['📌 預留彈性時段', '🌊 老街與海景散步'],
-                        backup: '備案：依當天體力與天氣彈性調整停留時間。',
+                        title: '安平老街漫遊與海景夕陽',
+                        desc: '預留給安平散步、吃特色小吃、看夕陽海景的彈性時段，可自由加入口袋景點。',
+                        tags: ['📌 彈性漫遊', '🌊 老街與海景'],
                         mapQuery: '安平老街',
                         district: '安平區',
                         openHours: '10:00 - 19:00',
@@ -842,18 +647,16 @@
             },
             day2: {
                 slotLabel: 'Day 2',
-                title: '第二天行程（待補充／還車返程）',
-                badge: '🗓️ Day 2 預留區',
+                title: '市區早午餐散步 ➔ 伴手禮採買 ➔ 見昌還機車 ➔ 取車返程',
+                badge: '🗓️ Day 2 漫遊與返程',
                 badgeColor: '#E3EFE0',
-                rainyTip: '☔ 第二天可依第一天玩樂進度與退房、還車時間彈性安排。',
                 items: [
                     {
                         id: 'd2_a1',
-                        time: 'Day 2・規劃中',
-                        title: '第二天早午行程與取車返程',
-                        desc: '可在行程卡片的「筆記/備忘錄」直接寫下第二天想吃的早餐、咖啡廳或還車提醒。',
-                        tags: ['✏️ 可自由寫筆記'],
-                        backup: '備案：視天氣與返程時間調整。',
+                        time: '早午時段・市區',
+                        title: '第二天市區早午行程與取車返程',
+                        desc: '悠閒吃台南早午餐、逛市區古蹟文創，下午還機車並取車返程。',
+                        tags: ['✏️ 可自由安排', '🚗 返程'],
                         mapQuery: '臺南轉運站',
                         district: '中西區',
                         openHours: '09:00 - 17:00',
@@ -864,9 +667,8 @@
         };
 
         let state = {
-            activeTab: 'home',
-            weatherMode: localStorage.getItem('tn_weather_v1') || 'sunny',
-            selectedSlot: 'am1', // 'am1', 'pm1', 'day2'
+            activeTab: 'itinerary', // 預設直接看行程表
+            selectedSlot: 'am1',    // 'am1', 'pm1', 'day2'
             spotFilter: 'all',
             tripMeta: JSON.parse(localStorage.getItem('tn_meta_v1') || 'null') || { ...DEFAULT_META },
             checkedStops: JSON.parse(localStorage.getItem('tn_checked_stops_v1') || '{}'),
@@ -887,7 +689,7 @@
         };
 
         // ==========================================
-        // 2. HELPERS & GENERAL UTILITIES
+        // 2. GENERAL HELPERS & STORAGE
         // ==========================================
         let toastTimer = null;
         function showToast(text, icon = '✅') {
@@ -900,7 +702,7 @@
             toastTimer = setTimeout(() => {
                 toast.classList.add('opacity-0', 'translate-y-2');
                 toast.classList.remove('opacity-100', 'translate-y-0');
-            }, 2100);
+            }, 2000);
         }
 
         function escapeHtml(str) {
@@ -917,7 +719,6 @@
         }
 
         function saveState() {
-            localStorage.setItem('tn_weather_v1', state.weatherMode);
             localStorage.setItem('tn_meta_v1', JSON.stringify(state.tripMeta));
             localStorage.setItem('tn_checked_stops_v1', JSON.stringify(state.checkedStops));
             localStorage.setItem('tn_stop_notes_v1', JSON.stringify(state.stopNotes));
@@ -930,138 +731,8 @@
             localStorage.setItem('tn_expenses_v2', JSON.stringify(state.expenses));
         }
 
-        function updateClock() {
-            const el = document.getElementById('tw-clock');
-            if (!el) return;
-            const now = new Date().toLocaleTimeString('zh-TW', {
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: false
-            });
-            el.textContent = `台灣時間 ${now}`;
-        }
-
-        function renderHeroIllustration() {
-            const isSunny = state.weatherMode === 'sunny';
-            return `
-        <div class="relative rounded-[18px] border-2 border-[#222222] overflow-hidden">
-          <button onclick="toggleWeatherMode()" class="hb-btn absolute top-2.5 right-2.5 z-10 bg-white border-[1.5px] border-[#222222] rounded-full px-3 py-1 text-[11px] font-black flex items-center gap-1">
-            <span>${isSunny ? '☀️' : '🌧️'}</span>
-            <span>${isSunny ? '晴天模式' : '雨天模式'}</span>
-          </button>
-
-          <svg viewBox="0 0 380 170" class="w-full h-auto block" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="tnSkySunny" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#CBE2F6" />
-                <stop offset="100%" stop-color="#EEF7FF" />
-              </linearGradient>
-              <linearGradient id="tnSkyRainy" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#96AABF" />
-                <stop offset="100%" stop-color="#D2DCE6" />
-              </linearGradient>
-              <linearGradient id="anpingSea" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#7CC6FE" />
-                <stop offset="100%" stop-color="#A6E1FA" />
-              </linearGradient>
-            </defs>
-
-            <rect x="0" y="0" width="380" height="170" fill="${isSunny ? 'url(#tnSkySunny)' : 'url(#tnSkyRainy)'}" />
-
-            ${isSunny ? `
-              <g class="sun-rays-spin" stroke="#222222" stroke-width="2" stroke-linecap="round">
-                <line x1="332" y1="10" x2="332" y2="16" />
-                <line x1="332" y1="60" x2="332" y2="66" />
-                <line x1="304" y1="38" x2="310" y2="38" />
-                <line x1="354" y1="38" x2="360" y2="38" />
-                <line x1="312" y1="18" x2="316" y2="22" />
-                <line x1="348" y1="54" x2="352" y2="58" />
-                <line x1="352" y1="18" x2="348" y2="22" />
-                <line x1="316" y1="54" x2="312" y2="58" />
-              </g>
-              <circle cx="332" cy="38" r="15" fill="#F6D365" stroke="#222222" stroke-width="2.2" />
-            ` : `
-              <g stroke="#3B5266" stroke-width="1.8" stroke-linecap="round">
-                <line x1="105" y1="45" x2="99" y2="59" class="rain-drop-1" />
-                <line x1="145" y1="48" x2="139" y2="62" class="rain-drop-2" />
-                <line x1="185" y1="44" x2="179" y2="58" class="rain-drop-3" />
-                <line x1="230" y1="48" x2="224" y2="62" class="rain-drop-1" />
-              </g>
-            `}
-
-            <!-- Clouds -->
-            <g class="cloud-drift-a">
-              <path d="M98 46 H148 C153 46 156 43 156 38 C156 34 153 31 148 31 C147 24 141 19 134 19 C128 19 123 22 121 27 C119 26 117 25 114 25 C109 25 105 29 105 34 C101 34 98 37 98 41 C98 44 98 46 98 46 Z"
-                    fill="${isSunny ? '#FFFFFF' : '#CBD5E1'}" stroke="#222222" stroke-width="2" stroke-linejoin="round" />
-            </g>
-            <g class="cloud-drift-b">
-              <path d="M210 50 H252 C256 50 259 47 259 43 C259 40 256 37 252 37 C251 31 246 27 240 27 C235 27 231 30 229 34 C225 34 222 37 222 41 C222 46 216 50 210 50 Z"
-                    fill="${isSunny ? '#FFFFFF' : '#94A3B8'}" stroke="#222222" stroke-width="2" stroke-linejoin="round" />
-            </g>
-
-            <!-- Anping Coastal Water Band -->
-            <rect x="195" y="106" width="185" height="30" fill="url(#anpingSea)" />
-            <line x1="195" y1="106" x2="380" y2="106" stroke="#222222" stroke-width="2" />
-            <path d="M272 118 Q282 115 292 118 T312 118" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" class="wave-shimmer" />
-            <path d="M324 127 Q334 124 344 127" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" class="wave-shimmer" />
-
-            <!-- Green Hillside & Temple Roof Accent -->
-            <path d="M0 104 Q72 86 155 106 Q190 115 215 136 H0 Z" fill="#E3EFE0" stroke="#222222" stroke-width="2" />
-
-            <!-- Cute Temple Gate / Pagoda Accent -->
-            <g transform="translate(96, 68)">
-              <rect x="14" y="22" width="44" height="20" fill="#F8EAE8" stroke="#222222" stroke-width="2" />
-              <line x1="24" y1="22" x2="24" y2="42" stroke="#222222" stroke-width="1.8" />
-              <line x1="48" y1="22" x2="48" y2="42" stroke="#222222" stroke-width="1.8" />
-              <rect x="31" y="28" width="10" height="8" fill="#F6D365" stroke="#222222" stroke-width="1.5" />
-              <path d="M4 23 Q36 16 68 23 L62 17 Q36 12 10 17 Z" fill="#F6D365" stroke="#222222" stroke-width="2" stroke-linejoin="round" />
-              <path d="M12 11 Q36 3 60 11 L53 5 Q36 0 19 5 Z" fill="#F6D365" stroke="#222222" stroke-width="2" stroke-linejoin="round" />
-            </g>
-
-            <!-- Swaying Palm Tree -->
-            <g class="palm-sway">
-              <path d="M54 136 Q50 114 58 94" fill="none" stroke="#8D6E63" stroke-width="5" stroke-linecap="round" />
-              <path d="M54 136 Q50 114 58 94" fill="none" stroke="#222222" stroke-width="2" stroke-linecap="round" />
-              <path d="M58 94 Q40 86 30 98 Q44 94 58 94 Z" fill="#8FD18B" stroke="#222222" stroke-width="1.8" stroke-linejoin="round" />
-              <path d="M58 94 Q44 76 32 80 Q46 84 58 94 Z" fill="#A5E0A1" stroke="#222222" stroke-width="1.8" stroke-linejoin="round" />
-              <path d="M58 94 Q74 78 84 84 Q70 86 58 94 Z" fill="#A5E0A1" stroke="#222222" stroke-width="1.8" stroke-linejoin="round" />
-              <path d="M58 94 Q76 90 84 102 Q70 96 58 94 Z" fill="#8FD18B" stroke="#222222" stroke-width="1.8" stroke-linejoin="round" />
-            </g>
-
-            <!-- Road Strip -->
-            <rect x="0" y="136" width="380" height="34" fill="#E3DACB" />
-            <line x1="0" y1="136" x2="380" y2="136" stroke="#222222" stroke-width="2.2" />
-            <line x1="0" y1="154" x2="380" y2="154" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="10 10" />
-
-            <!-- Cute Scooter Heading to Anping -->
-            <g transform="translate(222, 114)">
-              <g class="scooter-bounce">
-                <!-- Scooter Body -->
-                <path d="M8 22 L16 14 L34 14 L42 22 L48 22 L46 27 L8 27 Z" fill="#F6D365" stroke="#222222" stroke-width="2" stroke-linejoin="round" />
-                <!-- Front Fork & Handlebar -->
-                <line x1="35" y1="14" x2="32" y2="5" stroke="#222222" stroke-width="2.2" stroke-linecap="round" />
-                <line x1="27" y1="5" x2="37" y2="5" stroke="#222222" stroke-width="2.2" stroke-linecap="round" />
-                <!-- Seat -->
-                <path d="M12 13 Q20 10 27 13" fill="none" stroke="#222222" stroke-width="3" stroke-linecap="round" />
-              </g>
-              <!-- Wheels -->
-              <g class="wheel-spin">
-                <circle cx="13" cy="27" r="6.5" fill="#222222" />
-                <circle cx="13" cy="27" r="2.5" fill="#FFFFFF" />
-              </g>
-              <g class="wheel-spin">
-                <circle cx="42" cy="27" r="6.5" fill="#222222" />
-                <circle cx="42" cy="27" r="2.5" fill="#FFFFFF" />
-              </g>
-            </g>
-          </svg>
-        </div>
-      `;
-        }
-
         // ==========================================
-        // 3. EXPENSE TRACKING LOGIC (重點功能 3)
+        // 3. EXPENSE TRACKING LOGIC
         // ==========================================
         function getStopExpenses(stopId) {
             return state.expenses[stopId] || [];
@@ -1122,7 +793,7 @@
             const modal = document.getElementById('stop-expense-modal');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-            setTimeout(() => document.getElementById('stop-exp-input-name').focus(), 100);
+            setTimeout(() => document.getElementById('stop-exp-input-amount').focus(), 100);
         }
 
         function closeStopExpenseModal() {
@@ -1135,7 +806,7 @@
         function setQuickExpCategory(catName) {
             const input = document.getElementById('stop-exp-input-name');
             input.value = catName.replace(/^[^ws一-龥]+/, '').trim() + ' ';
-            input.focus();
+            document.getElementById('stop-exp-input-amount').focus();
         }
 
         function saveStopExpenseItem() {
@@ -1203,8 +874,8 @@
 
             if (items.length === 0) {
                 listEl.innerHTML = `
-                    <div class="text-center py-4 text-[#888888] bg-white rounded-xl border border-dashed border-[#222222]/30 text-xs font-bold">
-                        尚無花費紀錄，上方可立即輸入記帳
+                    <div class="text-center py-3 text-[#888888] bg-white rounded-xl border border-dashed border-[#222222]/30 text-xs font-bold">
+                        尚無花費紀錄，上方輸入金額快速記帳
                     </div>
                 `;
                 return;
@@ -1235,7 +906,7 @@
                 hotel: { label: '🏨 住宿費用', color: '#F8EAE8' },
                 ticket: { label: '🎫 門票玩樂', color: '#E3EFE0' },
                 shopping: { label: '🛍️ 伴手禮購物', color: '#F6D365' },
-                other: { label: '🪙 其他支出', color: '#EAE6DA' }
+                other: { label: '🪙 其他雜支', color: '#EAE6DA' }
             };
 
             const stopsWithExpenses = [];
@@ -1256,7 +927,7 @@
                 <div class="bg-[#F6D365] border-2 border-[#222222] rounded-2xl p-4 space-y-1 text-center">
                     <div class="text-xs font-black text-[#222222]/80">台南小旅行・累計總支出</div>
                     <div class="text-3xl font-black text-[#222222] tabular-nums">NT$ ${summary.total.toLocaleString()}</div>
-                    <div class="text-xs font-bold text-[#222222] mt-1 bg-white/70 hb-pill py-1 px-3 inline-block">
+                    <div class="text-xs font-bold text-[#222222] mt-1 bg-white/80 hb-pill py-1 px-3 inline-block">
                         兩人同行・平均每人 <strong>NT$ ${summary.perPerson.toLocaleString()}</strong>
                     </div>
                 </div>
@@ -1287,7 +958,7 @@
 
                 <!-- Add Quick General Expense -->
                 <div class="bg-white border-[1.5px] border-[#222222] rounded-2xl p-3 space-y-2">
-                    <div class="text-xs font-black text-[#222222]">＋ 新增一般雜支（加油、零食飲料等）</div>
+                    <div class="text-xs font-black text-[#222222]">＋ 新增一般雜支（加油、飲料等）</div>
                     <div class="grid grid-cols-5 gap-2">
                         <input id="gen-exp-title" type="text" placeholder="例：機車加油、飲料" class="col-span-3 border-[1.5px] border-[#222222] rounded-xl px-2.5 py-1.5 text-xs font-bold bg-[#F5F3EB] focus:outline-none" />
                         <input id="gen-exp-amt" type="number" placeholder="金額" class="col-span-2 border-[1.5px] border-[#222222] rounded-xl px-2 py-1.5 text-xs font-bold bg-[#F5F3EB] focus:outline-none text-right" />
@@ -1300,11 +971,11 @@
                 <!-- Per-Stop Details List -->
                 <div class="space-y-2">
                     <div class="text-xs font-black text-[#555555]">各站點消費清單 (${stopsWithExpenses.length} 個站點)</div>
-                    <div class="space-y-2 max-h-56 overflow-y-auto no-scrollbar">
+                    <div class="space-y-2 max-h-52 overflow-y-auto no-scrollbar">
                         ${stopsWithExpenses.length === 0 ? `
                             <div class="text-center py-4 text-xs font-bold text-[#888888]">目前還沒有任何站點記帳</div>
                         ` : stopsWithExpenses.map(item => `
-                            <div class="bg-white border border-[#222222]/40 rounded-xl p-2.5 space-y-1">
+                            <div class="bg-white border border-[#222222]/30 rounded-xl p-2.5 space-y-1">
                                 <div class="flex items-center justify-between text-xs font-black text-[#222222]">
                                     <span class="line-clamp-1">${escapeHtml(item.stopTitle)}</span>
                                     <span class="tabular-nums text-sm text-[#E05252]">NT$ ${item.stopTotal.toLocaleString()}</span>
@@ -1324,7 +995,7 @@
 
                 <div class="pt-2 flex gap-2">
                     <button onclick="confirmClearExpenses()" class="py-2 px-3 rounded-xl border border-red-300 text-red-500 text-xs font-bold hover:bg-red-50 hb-btn">
-                        🗑️ 清空記帳
+                        🗑️ 清空
                     </button>
                     <button onclick="closeGlobalExpenseModal()" class="flex-1 py-2 rounded-xl border-2 border-[#222222] bg-[#F5F3EB] text-xs font-black hb-btn">
                         關閉
@@ -1379,7 +1050,7 @@
         }
 
         // ==========================================
-        // 4. SMART ROUTE OPTIMIZATION (重點功能 2)
+        // 4. SMART ROUTE OPTIMIZATION
         // ==========================================
         let optimizedPreviewItems = [];
 
@@ -1390,7 +1061,6 @@
 
             let score = 50;
 
-            // 1. Mandatory anchor priorities
             if (title.includes('停車') || title.includes('抵達')) return -100;
             if (title.includes('早餐') || title.includes('牛肉湯')) score = -40;
             if (title.includes('廟宇') || title.includes('玉皇宮') || title.includes('參拜')) score = -30;
@@ -1401,7 +1071,6 @@
             if (title.includes('夜市') || title.includes('宵夜') || title.includes('酒吧')) score = 95;
             if (title.includes('還車') || title.includes('取車返程') || title.includes('返程')) return 100;
 
-            // 2. District progression
             if (slotKey === 'am1') {
                 if (district === '北區') score -= 20;
                 else if (district === '中西區') score += 5;
@@ -1419,7 +1088,6 @@
                 if (district === '北區') score += 30;
             }
 
-            // 3. Opening hours logic
             if (hours.includes('04:') || hours.includes('05:') || hours.includes('06:') || hours.includes('早市')) {
                 score -= 30;
             } else if (hours.includes('16:') || hours.includes('17:') || hours.includes('夕陽')) {
@@ -1545,28 +1213,6 @@
             showToast('✨ 已套用智慧最佳順序！', '🎉');
         }
 
-        function moveItemUp(slotKey, index) {
-            if (index <= 0) return;
-            const items = state.scheduleSlots[slotKey].items;
-            const temp = items[index];
-            items[index] = items[index - 1];
-            items[index - 1] = temp;
-            saveState();
-            renderCurrentTab();
-            showToast('已上移站點順序', '⬆️');
-        }
-
-        function moveItemDown(slotKey, index) {
-            const items = state.scheduleSlots[slotKey].items;
-            if (index >= items.length - 1) return;
-            const temp = items[index];
-            items[index] = items[index + 1];
-            items[index + 1] = temp;
-            saveState();
-            renderCurrentTab();
-            showToast('已下移站點順序', '⬇️');
-        }
-
         function deleteItineraryItem(slotKey, index) {
             if (!confirm('確定要從行程中移除此站點嗎？（若在口袋名單中仍會保留）')) return;
             state.scheduleSlots[slotKey].items.splice(index, 1);
@@ -1575,8 +1221,19 @@
             showToast('已從行程中移除該站點');
         }
 
+        function promptEditNote(itemId) {
+            const current = state.stopNotes[itemId] || '';
+            const val = prompt('輸入該站現場筆記備忘（如：必點品項、還車提醒等）：', current);
+            if (val !== null) {
+                state.stopNotes[itemId] = val.trim();
+                saveState();
+                renderCurrentTab();
+                showToast('已儲存筆記');
+            }
+        }
+
         // ==========================================
-        // 5. PLACES OF INTEREST / POCKET LIST (重點功能 1)
+        // 5. PLACES OF INTEREST / POCKET LIST
         // ==========================================
         let currentPickSlot = 'am1';
 
@@ -1657,9 +1314,8 @@
                     id: newId,
                     time: `第${['一','二','三','四','五','六','七','八','九','十'][slotItems.length] || (slotItems.length+1)}站・${newSpot.tag.slice(2)}`,
                     title: newSpot.name,
-                    desc: `${newSpot.tip}（營業時間：${newSpot.openHours}｜停留約 ${newSpot.stayMin}）`,
+                    desc: `${newSpot.tip}（營業時間：${newSpot.openHours}）`,
                     tags: [`📍 ${newSpot.district}`, newSpot.tag],
-                    backup: `備案：${newSpot.backup}`,
                     mapQuery: newSpot.mapQuery,
                     district: newSpot.district,
                     openHours: newSpot.openHours,
@@ -1671,7 +1327,7 @@
             saveState();
             closeAddSpotModal();
             renderCurrentTab();
-            showToast(`已成功加入「${name}」！`, '🎉');
+            showToast(`已加入「${name}」！`, '🎉');
         }
 
         function deleteCustomSpot(spotId) {
@@ -1737,9 +1393,8 @@
                 id: newId,
                 time: `第${['一','二','三','四','五','六','七','八','九','十'][slotItems.length] || (slotItems.length+1)}站・${spot.tag.slice(2)}`,
                 title: spot.name,
-                desc: `${spot.tip}（營業時間：${spot.openHours}｜建議停留：${spot.stayMin || '45分鐘'}）`,
+                desc: `${spot.tip}（營業時間：${spot.openHours}）`,
                 tags: [`📍 ${spot.district}`, spot.tag],
-                backup: `備案：${spot.backup}`,
                 mapQuery: spot.mapQuery,
                 district: spot.district,
                 openHours: spot.openHours,
@@ -1759,176 +1414,92 @@
         }
 
         // ==========================================
-        // 6. RENDERERS FOR TABS
+        // 6. STREAMLINED TAB RENDERERS (3 TABS)
         // ==========================================
-        function renderHomeTab() {
-            const am1Items = state.scheduleSlots.am1.items;
-            const doneCount = am1Items.filter(i => !!state.checkedStops[i.id]).length;
-            const pct = am1Items.length > 0 ? Math.round((doneCount / am1Items.length) * 100) : 0;
-            const grandExpense = getGrandTotalExpense();
 
-            return `
-        <div class="flex items-center justify-between pt-1">
-          <h1 class="text-[26px] font-black tracking-tight text-[#222222]">首頁</h1>
-          <div id="tw-clock" class="bg-white border-2 border-[#222222] rounded-full px-3.5 py-1 text-xs font-black tracking-wide tabular-nums">
-            台灣時間 --:--:--
-          </div>
-        </div>
-
-        <!-- Hero Card -->
-        <section class="hb-card p-4">
-          ${renderHeroIllustration()}
-
-          <div class="flex items-center justify-between gap-1.5 mt-3.5 flex-wrap">
-            <div class="flex items-center gap-1.5 flex-wrap">
-              <span class="bg-[#F8EAE8] hb-pill px-2.5 py-1 text-[11px] font-black text-[#222222]">
-                ${escapeHtml(state.tripMeta.regions)}
-              </span>
-              <span class="bg-[#E3EFE0] hb-pill px-2.5 py-1 text-[11px] font-black text-[#222222]">
-                ${escapeHtml(state.tripMeta.travelers)}
-              </span>
-            </div>
-            <button onclick="openEditModal()" class="hb-btn bg-white hb-pill px-2.5 py-1 text-[11px] font-black flex items-center gap-1">
-              <span>✏️</span>
-              <span>編輯</span>
-            </button>
-          </div>
-
-          <div class="mt-3">
-            <h2 class="text-[26px] font-black text-[#222222] leading-tight tracking-tight">
-              ${escapeHtml(state.tripMeta.title)}
-            </h2>
-            <p class="text-xs font-bold text-[#666666] mt-1">
-              ${escapeHtml(state.tripMeta.subtitle)}
-            </p>
-          </div>
-
-          <!-- Day 1 Morning Progress Box -->
-          <div class="bg-[#F6D365] border-2 border-[#222222] rounded-[18px] p-3.5 mt-4 space-y-2">
-            <div class="flex items-center justify-between text-xs font-black text-[#222222]">
-              <span>☀️ Day 1 早上行程進度</span>
-              <span class="tabular-nums">${doneCount} / ${am1Items.length} 站 (${pct}%)</span>
-            </div>
-            <div class="w-full h-3 bg-white border-[1.5px] border-[#222222] rounded-full overflow-hidden">
-              <div class="h-full bg-[#222222] transition-all duration-300" style="width: ${pct}%;"></div>
-            </div>
-          </div>
-
-          <!-- Quick Expense Summary Card -->
-          <div class="mt-3 bg-[#FFF9E6] border-2 border-[#222222] rounded-2xl p-3 flex items-center justify-between">
-            <div class="space-y-0.5">
-              <div class="text-[11px] font-black text-[#666666] flex items-center gap-1">
-                <span>💰</span>
-                <span>旅費累積支出</span>
-              </div>
-              <div class="text-lg font-black text-[#222222]">
-                NT$ ${grandExpense.total.toLocaleString()}
-                <span class="text-[11px] font-bold text-[#666666]">（每人 NT$ ${grandExpense.perPerson.toLocaleString()}）</span>
-              </div>
-            </div>
-            <button onclick="openGlobalExpenseModal()" class="hb-btn bg-white border-[1.5px] border-[#222222] rounded-xl px-2.5 py-1 text-xs font-black">
-              明細 ➔
-            </button>
-          </div>
-
-          ${state.tripMeta.memo ? `
-            <div class="mt-3 bg-[#F5F3EB] border-[1.5px] border-[#222222] rounded-xl px-3 py-2 text-[11px] font-bold text-[#222222] flex items-center gap-1.5">
-              <span>📌</span>
-              <span>${escapeHtml(state.tripMeta.memo)}</span>
-            </div>
-          ` : ''}
-        </section>
-
-        <!-- Morning Route Quick View -->
-        <section class="hb-card p-4 bg-[#F8EAE8] space-y-2.5">
-          <div class="flex items-center justify-between">
-            <span class="bg-white hb-pill px-3 py-0.5 text-xs font-black">🗺️ Day 1 早上動線</span>
-            <button onclick="switchTab('itinerary')" class="hb-btn bg-[#222222] text-white rounded-full px-3 py-1 text-[11px] font-black">
-              完整行程 ➔
-            </button>
-          </div>
-          <p class="text-xs font-black text-[#222222] leading-relaxed">
-            ${am1Items.map(i => i.title.split('-')[0].trim()).join(' ➔ ')}
-          </p>
-        </section>
-      `;
-        }
-
+        // TAB 1: 行程表 (主畫面)
         function renderItineraryTab() {
             const slot = state.scheduleSlots[state.selectedSlot];
-            const isRainy = state.weatherMode === 'rainy';
             const grandExpense = getGrandTotalExpense();
+            const doneCount = slot.items.filter(i => !!state.checkedStops[i.id]).length;
+            const pct = slot.items.length > 0 ? Math.round((doneCount / slot.items.length) * 100) : 0;
 
             return `
+        <!-- Header Info Bar -->
         <div class="flex items-center justify-between pt-1">
-          <h1 class="text-2xl font-black text-[#222222]">行程表</h1>
-          <button onclick="toggleWeatherMode()" class="hb-btn bg-white border-2 border-[#222222] rounded-full px-3 py-1 text-xs font-black flex items-center gap-1.5">
-            <span>${isRainy ? '🌧️' : '☀️'}</span>
-            <span>${isRainy ? '雨天模式' : '晴天模式'}</span>
+          <div>
+            <h1 class="text-2xl font-black text-[#222222] tracking-tight">${escapeHtml(state.tripMeta.title)}</h1>
+            <p class="text-[11px] font-bold text-[#666666]">${escapeHtml(state.tripMeta.subtitle)} ・ ${escapeHtml(state.tripMeta.regions)}</p>
+          </div>
+          <button onclick="openEditModal()" class="hb-btn bg-white border-2 border-[#222222] rounded-full px-2.5 py-1 text-xs font-black flex items-center gap-1 shadow-sm">
+            <span>✏️</span>
+            <span>設定</span>
           </button>
         </div>
 
-        <!-- Slot Switcher Tabs -->
+        <!-- Slot Switcher Tabs (Day 1 早上 / Day 1 下午 / Day 2) -->
         <div class="grid grid-cols-3 gap-2">
           ${Object.entries(state.scheduleSlots).map(([key, s]) => {
                 const active = state.selectedSlot === key;
                 return `
-              <button onclick="selectSlot('${key}')" class="hb-btn py-2 px-2 rounded-[16px] border-2 border-[#222222] text-center transition ${active ? 'bg-[#F6D365]' : 'bg-white'}">
-                <div class="text-xs font-black text-[#222222]">${s.slotLabel}</div>
+              <button onclick="selectSlot('${key}')" class="hb-btn py-2.5 px-2 rounded-[16px] border-2 border-[#222222] text-center transition-all ${active ? 'bg-[#F6D365] shadow-sm font-black' : 'bg-white font-bold opacity-80'}">
+                <div class="text-xs text-[#222222]">${s.slotLabel}</div>
               </button>
             `;
             }).join('')}
         </div>
 
-        <!-- Slot Header Card -->
-        <div class="hb-card p-3.5 space-y-2">
-          <div class="flex items-center justify-between gap-2 flex-wrap">
-            <span class="text-xs font-black text-[#666666]">${slot.slotLabel}</span>
-            <span class="hb-pill px-2.5 py-0.5 text-[11px] font-black" style="background-color: ${slot.badgeColor};">
-              ${slot.badge}
+        <!-- Slot Summary Banner -->
+        <div class="hb-card p-3 space-y-1.5 bg-[#FFFDF5]">
+          <div class="flex items-center justify-between text-xs font-black">
+            <span class="text-[#222222] flex items-center gap-1">
+              <span>${slot.badge}</span>
+            </span>
+            <span class="tabular-nums text-[11px] bg-white px-2 py-0.5 rounded-full border border-[#222222]/30">
+              進度 ${doneCount}/${slot.items.length} 站 (${pct}%)
             </span>
           </div>
-          <h2 class="text-base font-black text-[#222222] leading-snug">${slot.title}</h2>
-          ${isRainy ? `
-            <div class="bg-[#CBE2F6] border-[1.5px] border-[#222222] rounded-xl p-2.5 text-[11px] font-bold text-[#222222] leading-relaxed">
-              ${slot.rainyTip}
-            </div>
-          ` : ''}
+          <div class="w-full h-2 bg-white border border-[#222222]/30 rounded-full overflow-hidden">
+            <div class="h-full bg-[#222222] transition-all duration-300" style="width: ${pct}%;"></div>
+          </div>
         </div>
 
-        <!-- Action Bar: Smart Route Optimizer & Add Spot -->
-        <div class="grid grid-cols-2 gap-2">
-          <button onclick="openOptimizeModal()" class="py-2.5 px-3 rounded-2xl border-2 border-[#222222] bg-[#F6D365] text-xs font-black flex items-center justify-center gap-1.5 hb-btn shadow-[0_2px_0_#222222]">
-            <span>✨</span>
-            <span>智慧推薦最佳順序</span>
+        <!-- Expense Quick Bar -->
+        <div class="hb-card p-2.5 px-3 bg-white flex items-center justify-between shadow-sm">
+          <div class="flex items-center gap-2">
+            <span class="text-base">💰</span>
+            <div>
+              <div class="text-[10px] font-black text-[#888888]">台南旅費累積</div>
+              <div class="text-sm font-black text-[#222222] tabular-nums">
+                NT$ ${grandExpense.total.toLocaleString()}
+                <span class="text-[10px] font-bold text-[#666666] ml-1">（每人 $${grandExpense.perPerson.toLocaleString()}）</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="openGlobalExpenseModal()" class="hb-btn bg-[#F6D365] hb-pill px-3 py-1 text-xs font-black">
+            記帳明細 ➔
           </button>
-          <button onclick="openPickSpotModal('${state.selectedSlot}')" class="py-2.5 px-3 rounded-2xl border-2 border-[#222222] bg-white text-xs font-black flex items-center justify-center gap-1 hb-btn shadow-[0_2px_0_#222222]">
+        </div>
+
+        <!-- Action Strip: Smart Optimize & Pick From Pocket -->
+        <div class="grid grid-cols-2 gap-2">
+          <button onclick="openOptimizeModal()" class="py-2.5 px-2.5 rounded-2xl border-2 border-[#222222] bg-[#F6D365] text-xs font-black flex items-center justify-center gap-1.5 hb-btn shadow-[0_2px_0_#222222]">
+            <span>✨</span>
+            <span>智慧路線最佳化</span>
+          </button>
+          <button onclick="openPickSpotModal('${state.selectedSlot}')" class="py-2.5 px-2.5 rounded-2xl border-2 border-[#222222] bg-white text-xs font-black flex items-center justify-center gap-1 hb-btn shadow-[0_2px_0_#222222]">
             <span>➕</span>
             <span>挑選口袋名單</span>
           </button>
         </div>
 
-        <!-- Expense Header Bar -->
-        <div class="hb-card p-3 bg-[#FFFDF5] flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span class="text-lg">💰</span>
-            <div>
-              <div class="text-[10px] font-black text-[#777777]">旅費總累計</div>
-              <div class="text-sm font-black text-[#222222]">NT$ ${grandExpense.total.toLocaleString()} <span class="text-[10px] font-bold text-[#666666]">（每人 $${grandExpense.perPerson.toLocaleString()}）</span></div>
-            </div>
-          </div>
-          <button onclick="openGlobalExpenseModal()" class="hb-btn bg-[#F6D365] hb-pill px-3 py-1 text-xs font-black">
-            記帳明細
-          </button>
-        </div>
-
-        <!-- Timeline Cards -->
-        <div class="space-y-3">
+        <!-- Streamlined Timeline Cards -->
+        <div class="space-y-2.5">
           ${slot.items.length === 0 ? `
             <div class="hb-card p-6 text-center space-y-2">
               <div class="text-2xl">🗺️</div>
-              <div class="text-xs font-black text-[#555555]">這個時段目前沒有排定的站點</div>
-              <button onclick="openPickSpotModal('${state.selectedSlot}')" class="hb-btn bg-[#F6D365] hb-pill px-3 py-1 text-xs font-black">
+              <div class="text-xs font-black text-[#555555]">這個時段目前沒有站點</div>
+              <button onclick="openPickSpotModal('${state.selectedSlot}')" class="hb-btn bg-[#F6D365] hb-pill px-3 py-1.5 text-xs font-black">
                 ＋ 從口袋名單挑選加入
               </button>
             </div>
@@ -1936,83 +1507,69 @@
                 const checked = !!state.checkedStops[item.id];
                 const noteVal = state.stopNotes[item.id] || '';
                 const stopTotal = getStopTotalExpense(item.id);
-                const stopExpenseCount = getStopExpenses(item.id).length;
 
                 return `
-              <div class="hb-card p-3.5 space-y-2.5 transition ${checked ? 'opacity-65 bg-[#FAF8F2]' : 'bg-white'}">
-                <div class="flex items-center justify-between gap-2">
-                  <div class="flex items-center gap-2">
-                    <button onclick="toggleStopDone('${item.id}')" class="hb-btn w-6 h-6 rounded-full border-2 border-[#222222] flex items-center justify-center text-xs font-black ${checked ? 'bg-[#E3EFE0]' : 'bg-white'}">
+              <div class="hb-card p-3 space-y-2 transition-all ${checked ? 'opacity-60 bg-[#FAF8F2]' : 'bg-white'}">
+                <!-- Top Header: Done check, Stop badge, Title, Actions (Map, Expense) -->
+                <div class="flex items-start justify-between gap-2">
+                  <div class="flex items-start gap-2 min-w-0">
+                    <button onclick="toggleStopDone('${item.id}')" title="標記完成" class="hb-btn mt-0.5 w-6 h-6 rounded-full border-2 border-[#222222] flex items-center justify-center text-xs font-black shrink-0 ${checked ? 'bg-[#E3EFE0]' : 'bg-white'}">
                       ${checked ? '✓' : ''}
                     </button>
-                    <span class="bg-[#222222] text-white rounded-full px-2.5 py-0.5 text-xs font-black">
-                      ${item.time}
-                    </span>
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-1.5 flex-wrap">
+                        <span class="bg-[#222222] text-white rounded-full px-2 py-0.5 text-[10px] font-black">
+                          ${item.time}
+                        </span>
+                        ${item.district ? `<span class="bg-[#F5F3EB] text-[#555555] rounded-full px-2 py-0.5 text-[10px] font-black">📍 ${item.district}</span>` : ''}
+                        ${item.openHours ? `<span class="text-[10px] font-bold text-[#888888]">⏰ ${item.openHours}</span>` : ''}
+                      </div>
+                      <h3 class="text-[15px] font-black text-[#222222] leading-snug mt-1 ${checked ? 'line-through text-[#666666]' : ''}">
+                        ${item.title}
+                      </h3>
+                    </div>
                   </div>
-                  <div class="flex items-center gap-1.5">
-                    <!-- Move Up / Down Buttons -->
-                    <button onclick="moveItemUp('${state.selectedSlot}', ${idx})" title="上移" class="w-6 h-6 rounded-lg border border-[#222222] flex items-center justify-center text-[10px] font-black bg-white hb-btn ${idx === 0 ? 'opacity-30 cursor-not-allowed' : ''}">
-                      ▲
-                    </button>
-                    <button onclick="moveItemDown('${state.selectedSlot}', ${idx})" title="下移" class="w-6 h-6 rounded-lg border border-[#222222] flex items-center justify-center text-[10px] font-black bg-white hb-btn ${idx === slot.items.length - 1 ? 'opacity-30 cursor-not-allowed' : ''}">
-                      ▼
-                    </button>
-                    <button onclick="openGoogleMaps('${item.mapQuery.replace(/'/g, "\\'")}')" class="hb-btn bg-[#F6D365] hb-pill px-2 py-0.5 text-[11px] font-black flex items-center gap-1">
+
+                  <!-- Quick Action Buttons: Map & Expense -->
+                  <div class="flex items-center gap-1.5 shrink-0">
+                    <button onclick="openGoogleMaps('${item.mapQuery.replace(/'/g, "\\'")}')" class="hb-btn bg-[#F6D365] hb-pill px-2.5 py-1 text-[11px] font-black flex items-center gap-1 shadow-sm">
                       <span>📍</span>
                       <span>導航</span>
                     </button>
+                    <button onclick="openStopExpenseModal('${item.id}', '${escapeHtml(item.title)}')" class="hb-btn ${stopTotal > 0 ? 'bg-[#E3EFE0] text-[#222222]' : 'bg-[#F5F3EB] text-[#666666]'} hb-pill px-2 py-1 text-[11px] font-black flex items-center gap-0.5 shadow-sm">
+                      <span>💰</span>
+                      <span>${stopTotal > 0 ? `NT$${stopTotal}` : '記帳'}</span>
+                    </button>
+                    ${item.isCustom ? `
+                      <button onclick="deleteItineraryItem('${state.selectedSlot}', ${idx})" title="移除" class="text-xs text-[#aaaaaa] hover:text-red-500 font-black p-1 hb-btn">
+                        ✕
+                      </button>
+                    ` : ''}
                   </div>
                 </div>
 
-                <div class="flex items-start justify-between gap-2">
-                  <h3 class="text-[15px] font-black text-[#222222] leading-snug ${checked ? 'line-through text-[#666666]' : ''}">
-                    ${item.title}
-                  </h3>
-                  <button onclick="deleteItineraryItem('${state.selectedSlot}', ${idx})" title="從行程移除" class="text-xs text-[#999999] hover:text-red-500 font-bold p-1 hb-btn">
-                    🗑️
-                  </button>
-                </div>
-
-                <p class="text-xs font-bold text-[#555555] leading-relaxed">
+                <!-- Description / Tips -->
+                <p class="text-xs font-bold text-[#555555] leading-relaxed pl-8">
                   ${item.desc}
                 </p>
 
-                <div class="flex items-center gap-1.5 flex-wrap">
-                  ${(item.tags || []).map(t => `
-                    <span class="bg-[#F5F3EB] hb-pill px-2.5 py-0.5 text-[10px] font-black">${t}</span>
-                  `).join('')}
-                </div>
-
-                ${item.backup ? `
-                  <div class="bg-[#F8EAE8]/80 rounded-xl px-2.5 py-1.5 text-[11px] font-bold text-[#222222]">
-                    💡 ${item.backup}
+                <!-- Tags & Note Indicator -->
+                <div class="pl-8 flex items-center justify-between gap-2 flex-wrap border-t border-dashed border-gray-100 pt-1.5">
+                  <div class="flex items-center gap-1 flex-wrap">
+                    ${(item.tags || []).map(t => `<span class="bg-[#F5F3EB] rounded-full px-2 py-0.5 text-[10px] font-bold text-[#555555]">${t}</span>`).join('')}
                   </div>
-                ` : ''}
-
-                <!-- Spot Expense Section (重點功能 3) -->
-                <div class="flex items-center justify-between bg-[#FFFDF5] border-[1.5px] border-[#222222]/30 rounded-xl px-3 py-2">
-                  <div class="flex items-center gap-1.5">
-                    <span class="text-xs">💰</span>
-                    <span class="text-xs font-black text-[#222222]">
-                      ${stopTotal > 0 ? `花費：NT$ ${stopTotal.toLocaleString()}` : '尚未記帳'}
-                    </span>
-                    ${stopExpenseCount > 0 ? `<span class="text-[10px] bg-[#E3EFE0] px-1.5 py-0.5 rounded-full font-bold">(${stopExpenseCount}筆)</span>` : ''}
-                  </div>
-                  <button onclick="openStopExpenseModal('${item.id}', '${escapeHtml(item.title)}')" class="hb-btn bg-[#F6D365] hb-pill px-2.5 py-1 text-[11px] font-black flex items-center gap-1">
-                    <span>${stopTotal > 0 ? '✏️ 明細/加記' : '＋ 記帳'}</span>
+                  <!-- Note Prompt Button -->
+                  <button onclick="promptEditNote('${item.id}')" class="text-[11px] font-bold text-[#666666] hover:text-[#222222] flex items-center gap-1 hb-btn">
+                    <span>✏️</span>
+                    <span>${noteVal ? escapeHtml(noteVal) : '<span class="text-[#999999]">加現場筆記</span>'}</span>
                   </button>
-                </div>
-
-                <!-- Personal Note Input per Stop -->
-                <div>
-                  <input type="text" value="${escapeHtml(noteVal)}" placeholder="✏️ 寫下現場筆記（如：車格號碼、還車時間、必點品項）" onchange="updateStopNote('${item.id}', this.value)" class="w-full text-[11px] font-bold bg-[#F5F3EB] border-[1.5px] border-[#222222]/40 rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-[#222222]" />
                 </div>
               </div>
             `;
             }).join('')}
         </div>
 
-        <!-- Add Custom Spot Button at bottom of timeline -->
+        <!-- Add Custom Spot to current slot -->
         <div class="pt-1">
           <button onclick="openAddSpotModal('${state.selectedSlot}')" class="w-full py-3 rounded-2xl border-2 border-[#222222] bg-[#F5F3EB] text-xs font-black flex items-center justify-center gap-1.5 hb-btn shadow-[0_2px_0_#222222]">
             <span>➕</span>
@@ -2022,6 +1579,7 @@
       `;
         }
 
+        // TAB 2: 口袋景點 (想去清單)
         function renderSpotsTab() {
             const filter = state.spotFilter || 'all';
 
@@ -2034,12 +1592,12 @@
             return `
         <div class="flex items-center justify-between pt-1">
           <div>
-            <h1 class="text-2xl font-black text-[#222222]">景點與口袋名單</h1>
-            <p class="text-[11px] font-bold text-[#666666]">收藏台南想去的特色地點</p>
+            <h1 class="text-2xl font-black text-[#222222]">口袋景點</h1>
+            <p class="text-[11px] font-bold text-[#666666]">收藏台南想去的特色美食與景點</p>
           </div>
           <button onclick="openAddSpotModal('saved')" class="hb-btn bg-[#F6D365] border-2 border-[#222222] rounded-full px-3 py-1.5 text-xs font-black flex items-center gap-1 shadow-[0_2px_0_#222222]">
             <span>➕</span>
-            <span>新增想去地點</span>
+            <span>新增地點</span>
           </button>
         </div>
 
@@ -2069,7 +1627,7 @@
               </button>
             </div>
           ` : filteredSpots.map(s => `
-            <div class="hb-card p-3.5 space-y-2.5">
+            <div class="hb-card p-3.5 space-y-2">
               <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-1.5 flex-wrap">
                   <span class="hb-pill px-2.5 py-0.5 text-[11px] font-black" style="background-color: ${s.color};">${s.tag}</span>
@@ -2092,20 +1650,14 @@
 
               <div class="text-[11px] text-[#666666] font-bold flex items-center gap-3">
                 <span>⏰ 營業時間：${s.openHours}</span>
-                <span>⏱️ 建議停留：${s.stayMin || '45分鐘'}</span>
+                <span>⏱️ 停留：${s.stayMin || '45分鐘'}</span>
               </div>
 
               <p class="text-xs font-bold text-[#555555] leading-relaxed">${s.tip}</p>
 
-              ${s.backup ? `
-                <div class="bg-[#F5F3EB] rounded-xl p-2 text-[11px] font-bold text-[#222222]">
-                  🔄 ${s.backup}
-                </div>
-              ` : ''}
-
               <!-- Add to Schedule Action Strip -->
-              <div class="pt-1 flex items-center justify-between border-t border-dashed border-[#222222]/20 text-xs">
-                <span class="text-[11px] font-bold text-[#666666]">加入行程時段：</span>
+              <div class="pt-1.5 flex items-center justify-between border-t border-dashed border-[#222222]/20 text-xs">
+                <span class="text-[11px] font-bold text-[#666666]">加入行程：</span>
                 <div class="flex items-center gap-1.5">
                   <button onclick="addSavedSpotToSlot('${s.id}', 'am1')" class="hb-btn bg-white border border-[#222222] rounded-lg px-2 py-1 text-[10px] font-black hover:bg-[#F6D365]">
                     ＋ Day 1 早上
@@ -2124,7 +1676,8 @@
       `;
         }
 
-        function renderChecklistTab() {
+        // TAB 3: 住宿・清單 (整合原 Info 與 Checklist)
+        function renderMemoTab() {
             let total = 0;
             let done = 0;
             state.checklist.forEach(c => c.items.forEach(i => {
@@ -2135,73 +1688,91 @@
 
             return `
         <div class="flex items-center justify-between pt-1">
-          <h1 class="text-2xl font-black text-[#222222]">行前清單</h1>
-          <button onclick="resetChecklist()" class="hb-btn bg-white hb-pill px-3 py-1 text-[11px] font-black">重置勾選</button>
-        </div>
-
-        <div class="hb-card p-4 bg-[#E3EFE0]">
-          <div class="flex items-center justify-between text-xs font-black mb-2">
-            <span>準備完成度</span>
-            <span class="tabular-nums">${done} / ${total} 項 (${pct}%)</span>
+          <div>
+            <h1 class="text-2xl font-black text-[#222222]">住宿・清單</h1>
+            <p class="text-[11px] font-bold text-[#666666]">重要交通、住宿備忘與行前行李</p>
           </div>
-          <div class="w-full h-3 bg-white border-2 border-[#222222] rounded-full overflow-hidden">
-            <div class="h-full bg-[#F6D365] transition-all duration-300" style="width: ${pct}%;"></div>
-          </div>
-        </div>
-
-        <div class="hb-card p-3 flex items-center gap-2">
-          <input id="new-check-input" type="text" placeholder="新增物品（如：雨衣、充電線）" class="flex-1 text-xs font-bold bg-[#F5F3EB] border-[1.5px] border-[#222222] rounded-xl px-3 py-2 focus:outline-none" onkeydown="if(event.key==='Enter') addCheckItem()" />
-          <button onclick="addCheckItem()" class="hb-btn bg-[#F6D365] border-[1.5px] border-[#222222] rounded-xl px-3 py-2 text-xs font-black shrink-0">＋ 加入</button>
-        </div>
-
-        <div class="space-y-3">
-          ${state.checklist.map((cat, cIdx) => `
-            <div class="hb-card p-3.5 space-y-2">
-              <h3 class="text-sm font-black text-[#222222] border-b-2 border-[#222222] pb-1">${cat.category}</h3>
-              <div class="space-y-1.5">
-                ${cat.items.map((item, iIdx) => `
-                  <label class="flex items-start gap-2.5 p-2 rounded-xl border-[1.5px] ${item.done ? 'bg-[#F5F3EB] border-[#222222]/30' : 'bg-white border-[#222222]'} cursor-pointer">
-                    <input type="checkbox" ${item.done ? 'checked' : ''} onchange="toggleCheckItem(${cIdx}, ${iIdx})" class="mt-0.5 w-4 h-4 accent-[#222222]" />
-                    <span class="text-xs font-bold flex-1 ${item.done ? 'line-through text-[#888888]' : 'text-[#222222]'}">${escapeHtml(item.text)}</span>
-                  </label>
-                `).join('')}
-              </div>
-            </div>
-          `).join('')}
-        </div>
-      `;
-        }
-
-        function renderInfoTab() {
-            return `
-        <div class="flex items-center justify-between pt-1">
-          <h1 class="text-2xl font-black text-[#222222]">住宿與車況</h1>
           <span class="text-[11px] font-black bg-[#E3EFE0] hb-pill px-2.5 py-1">自動儲存</span>
         </div>
 
-        <div class="hb-card p-4 space-y-3 text-xs font-bold">
+        <!-- Logistics Card: Parking, Rental, Hotel -->
+        <div class="hb-card p-3.5 space-y-3 text-xs font-bold">
+          <div class="text-sm font-black text-[#222222] border-b-2 border-[#222222] pb-1 flex items-center justify-between">
+            <span>🛵 住宿・租車・停車重點</span>
+            <span class="text-[10px] text-[#666666] font-bold">點擊可直接修改備忘</span>
+          </div>
+
           <div>
             <div class="flex items-center justify-between mb-1">
               <label class="font-black text-[#222222]">🅿️ 車子博客停車場 - 臺南轉運站場</label>
-              <button onclick="openGoogleMaps('臺南轉運站 停車場')" class="hb-btn bg-[#F5F3EB] hb-pill px-2 py-0.5 text-[10px] font-black">導航</button>
+              <button onclick="openGoogleMaps('臺南轉運站 停車場')" class="hb-btn bg-[#F6D365] hb-pill px-2 py-0.5 text-[10px] font-black">導航</button>
             </div>
-            <input type="text" value="${escapeHtml(state.parkingInfo)}" onchange="state.parkingInfo = this.value; saveState(); showToast('已儲存停車備忘');" class="w-full bg-[#F5F3EB] border-[1.5px] border-[#222222] rounded-xl px-3 py-2 text-xs font-bold" />
+            <input type="text" value="${escapeHtml(state.parkingInfo)}" onchange="state.parkingInfo = this.value; saveState(); showToast('已儲存停車備忘');" class="w-full bg-[#F5F3EB] border-[1.5px] border-[#222222] rounded-xl px-2.5 py-1.5 text-xs font-bold" />
           </div>
 
           <div>
             <div class="flex items-center justify-between mb-1">
               <label class="font-black text-[#222222]">🛵 見昌機車出租</label>
-              <button onclick="openGoogleMaps('見昌租機車 台南')" class="hb-btn bg-[#F5F3EB] hb-pill px-2 py-0.5 text-[10px] font-black">導航</button>
+              <button onclick="openGoogleMaps('見昌租機車 台南')" class="hb-btn bg-[#F6D365] hb-pill px-2 py-0.5 text-[10px] font-black">導航</button>
             </div>
-            <input type="text" value="${escapeHtml(state.scooterInfo)}" onchange="state.scooterInfo = this.value; saveState(); showToast('已儲存租車備忘');" class="w-full bg-[#F5F3EB] border-[1.5px] border-[#222222] rounded-xl px-3 py-2 text-xs font-bold" />
+            <input type="text" value="${escapeHtml(state.scooterInfo)}" onchange="state.scooterInfo = this.value; saveState(); showToast('已儲存租車備忘');" class="w-full bg-[#F5F3EB] border-[1.5px] border-[#222222] rounded-xl px-2.5 py-1.5 text-xs font-bold" />
           </div>
 
           <div>
             <div class="flex items-center justify-between mb-1">
               <label class="font-black text-[#222222]">🏨 廣發寓所</label>
-              <button onclick="openGoogleMaps('廣發寓所')" class="hb-btn bg-[#F5F3EB] hb-pill px-2 py-0.5 text-[10px] font-black">導航</button>
+              <button onclick="openGoogleMaps('廣發寓所')" class="hb-btn bg-[#F6D365] hb-pill px-2 py-0.5 text-[10px] font-black">導航</button>
             </div>
-            <input type="text" value="${escapeHtml(state.hotelInfo)}" onchange="state.hotelInfo = this.value; saveState(); showToast('已儲存住宿備忘');" class="w-full bg-[#F5F3EB] border-[1.5px] border-[#222222] rounded-xl px-3 py-2 text-xs font-bold" />
+            <input type="text" value="${escapeHtml(state.hotelInfo)}" onchange="state.hotelInfo = this.value; saveState(); showToast('已儲存住宿備忘');" class="w-full bg-[#F5F3EB] border-[1.5px] border-[#222222] rounded-xl px-2.5 py-1.5 text-xs font-bold" />
+          </div>
+
+          ${state.tripMeta.memo ? `
+            <div class="bg-[#FFFDF5] border-[1.5px] border-[#222222] rounded-xl p-2.5 text-[11px] font-bold text-[#222222] flex items-center gap-1.5">
+              <span>📌</span>
+              <span>${escapeHtml(state.tripMeta.memo)}</span>
+            </div>
+          ` : ''}
+        </div>
+
+        <!-- Packing Checklist Card -->
+        <div class="space-y-2.5">
+          <div class="flex items-center justify-between">
+            <h2 class="text-sm font-black text-[#222222]">🧳 行前行李清單</h2>
+            <button onclick="resetChecklist()" class="hb-btn bg-white hb-pill px-2.5 py-0.5 text-[11px] font-black">重置勾選</button>
+          </div>
+
+          <!-- Progress -->
+          <div class="hb-card p-3 bg-[#E3EFE0] space-y-1.5">
+            <div class="flex items-center justify-between text-xs font-black">
+              <span>準備完成度</span>
+              <span class="tabular-nums">${done} / ${total} 項 (${pct}%)</span>
+            </div>
+            <div class="w-full h-2.5 bg-white border-[1.5px] border-[#222222] rounded-full overflow-hidden">
+              <div class="h-full bg-[#F6D365] transition-all duration-300" style="width: ${pct}%;"></div>
+            </div>
+          </div>
+
+          <!-- Quick Add Input -->
+          <div class="hb-card p-2.5 flex items-center gap-2">
+            <input id="new-check-input" type="text" placeholder="新增清單項目（例：雨衣、行動電源）" class="flex-1 text-xs font-bold bg-[#F5F3EB] border-[1.5px] border-[#222222] rounded-xl px-3 py-1.5 focus:outline-none" onkeydown="if(event.key==='Enter') addCheckItem()" />
+            <button onclick="addCheckItem()" class="hb-btn bg-[#F6D365] border-[1.5px] border-[#222222] rounded-xl px-3 py-1.5 text-xs font-black shrink-0">＋ 加入</button>
+          </div>
+
+          <!-- Categories -->
+          <div class="space-y-2.5">
+            ${state.checklist.map((cat, cIdx) => `
+              <div class="hb-card p-3 space-y-1.5">
+                <h3 class="text-xs font-black text-[#222222] border-b border-[#222222]/20 pb-1">${cat.category}</h3>
+                <div class="space-y-1">
+                  ${cat.items.map((item, iIdx) => `
+                    <label class="flex items-start gap-2 p-1.5 rounded-xl border ${item.done ? 'bg-[#F5F3EB] border-[#222222]/20' : 'bg-white border-[#222222]/40'} cursor-pointer">
+                      <input type="checkbox" ${item.done ? 'checked' : ''} onchange="toggleCheckItem(${cIdx}, ${iIdx})" class="mt-0.5 w-4 h-4 accent-[#222222]" />
+                      <span class="text-xs font-bold flex-1 ${item.done ? 'line-through text-[#888888]' : 'text-[#222222]'}">${escapeHtml(item.text)}</span>
+                    </label>
+                  `).join('')}
+                </div>
+              </div>
+            `).join('')}
           </div>
         </div>
       `;
@@ -2225,30 +1796,19 @@
             const container = document.getElementById('main-content');
             if (!container) return;
             switch (state.activeTab) {
-                case 'home':
-                    container.innerHTML = renderHomeTab();
-                    updateClock();
-                    break;
                 case 'itinerary':
                     container.innerHTML = renderItineraryTab();
                     break;
                 case 'spots':
                     container.innerHTML = renderSpotsTab();
                     break;
-                case 'checklist':
-                    container.innerHTML = renderChecklistTab();
+                case 'memo':
+                    container.innerHTML = renderMemoTab();
                     break;
-                case 'info':
-                    container.innerHTML = renderInfoTab();
+                default:
+                    container.innerHTML = renderItineraryTab();
                     break;
             }
-        }
-
-        function toggleWeatherMode() {
-            state.weatherMode = state.weatherMode === 'sunny' ? 'rainy' : 'sunny';
-            saveState();
-            renderCurrentTab();
-            showToast(state.weatherMode === 'sunny' ? '已切換為 ☀️ 晴天模式' : '已切換為 🌧️ 雨天模式');
         }
 
         function selectSlot(slotKey) {
@@ -2260,12 +1820,6 @@
             state.checkedStops[id] = !state.checkedStops[id];
             saveState();
             renderCurrentTab();
-        }
-
-        function updateStopNote(id, val) {
-            state.stopNotes[id] = val;
-            saveState();
-            showToast('已儲存景點筆記', '✏️');
         }
 
         function toggleCheckItem(cIdx, iIdx) {
@@ -2331,8 +1885,7 @@
         }
 
         window.onload = function () {
-            switchTab('home');
-            setInterval(updateClock, 1000);
+            switchTab('itinerary');
         };
     </script>
 </body>
