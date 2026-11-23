@@ -1971,7 +1971,9 @@
 
         <!-- Slot Switcher Tabs (Day 1 早上 / Day 1 下午 / Day 2) -->
         <div class="grid grid-cols-3 gap-2">
-          ${Object.entries(state.scheduleSlots).map(([key, s]) => {
+          ${['am1', 'pm1', 'day2'].map(key => {
+                const s = state.scheduleSlots[key];
+                if (!s) return '';
                 const active = state.selectedSlot === key;
                 return `
               <button onclick="selectSlot('${key}')" class="hb-btn py-2.5 px-2 rounded-[16px] border-2 border-[#222222] text-center transition-all ${active ? 'bg-[#F6D365] shadow-sm font-black' : 'bg-white font-bold opacity-80'}">
